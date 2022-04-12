@@ -1,0 +1,28 @@
+.form-login {
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+
+  .thumb-image {
+    width: 60px;
+    height: 60px;
+    background: #cccccc;
+    border-radius: 8px;
+  }
+  .form-body {
+    font-size: 1rem;
+
+    .form-input{
+ 
+box-sizing: border-box;
+border-radius: 8px;
+    }
+  }
+  .regist-link {
+    cursor: pointer;
+    color: #0e65a3;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
