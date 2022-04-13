@@ -1,4 +1,5 @@
 import  Login  from '../pages/Login';
+import Register from '../pages/Register';
 
 export const routes = [
   {
@@ -8,5 +9,13 @@ export const routes = [
     },
     exact: true,
     component: Login
+  },
+  {
+    name: 'Register',
+    path: () => {
+      return '/register';
+    },
+    exact: true,
+    component: Register
   }
 ];

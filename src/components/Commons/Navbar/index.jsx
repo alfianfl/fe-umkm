@@ -35,18 +35,20 @@ function Navbar() {
 
   const setActiveNavStyle = (path) => {
     if (path === pathname) {
-      return 'active';
+      return 'actives';
     }
   };
 
   return (
     <nav className="navbar-main bg-white border-gray-200 px-2 sm:px-4 py-6 rounded dark:bg-gray-800">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
-        <img
-          src="/docs/images/logo.svg"
-          className="mr-3 h-6 sm:h-9"
-          alt="UMKM Logo"
-        />
+        <div className="thumb-image">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Kota_Cimahi.svg"
+            className="mr-3 h-12 sm:h-16"
+            alt="UMKM Logo"
+          />
+        </div>
 
         <button
           data-collapse-toggle="mobile-menu"
@@ -86,7 +88,7 @@ function Navbar() {
             {navList.map((nav, index) => (
               <li key={index}>
                 <NavLink
-                  className={`${() =>
+                  className={`${
                     setActiveNavStyle(
                       nav.path
                     )} navLink block py-2 pr-4 pl-3 rounded  md:p-0`}

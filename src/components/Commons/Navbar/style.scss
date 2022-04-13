@@ -10,6 +10,23 @@
 }
 .navbar-main {
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .container{
+    padding: 0 20px;
+
+    @media(min-width:1080px) {
+      padding: 0 9rem;
+    }
+
+    @media(min-width:1920px) {
+      padding: 0;
+    }
+  }
+  
 
   .button-auth{
     background-color: #F86400;
@@ -24,10 +41,10 @@
   li {
     margin: 0 2.5rem;
     color: #000000;
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-weight: 600;
 
-    .active {
+    .actives {
       color: #f86400;
       &:after {
         @include underlineStyle();

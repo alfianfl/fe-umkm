@@ -1,0 +1,39 @@
+.form-register {
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+
+  .thumb-image {
+    width: 80px;
+    height: 80px;
+    background: #cccccc;
+    border-radius: 8px;
+  }
+  .form-body {
+    font-size: 1rem;
+
+    .form-input {
+      border: 2px solid #efeef3;
+      box-sizing: border-box;
+      border-radius: 8px;
+    }
+
+    .location-svg {
+      bottom: 33px;
+      position: relative;
+    }
+
+    textarea {
+      height: 100px;
+    }
+  }
+  .regist-link {
+    cursor: pointer;
+    color: #0e65a3;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
