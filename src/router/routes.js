@@ -1,3 +1,4 @@
+import Home from '../pages/Home';
 import  Login  from '../pages/Login';
 import Register from '../pages/Register';
 
@@ -17,5 +18,13 @@ export const routes = [
     },
     exact: true,
     component: Register
+  },
+  {
+    name: 'Home',
+    path: () => {
+      return '/';
+    },
+    exact: true,
+    component: Home
   }
 ];

@@ -1,0 +1,107 @@
+@mixin textThumbStyle {
+  h1 {
+    font-size: 3rem;
+    color: #f86400;
+    font-weight: 700;
+    line-height: 56px;
+  }
+  p {
+    font-size: 18px;
+    color: #323232;
+    margin: 16px 0;
+  }
+  .button-selengkapnya {
+    font-size: 0.8em;
+  }
+}
+.section-thumb-1 {
+  text-align: left;
+
+  .text-description {
+    margin: auto 0;
+    @include textThumbStyle();
+  }
+
+  .thumb-img {
+    height: 0;
+    position: relative;
+    padding-top: 341px / 560px * 100%;
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+.section-mini-card {
+  margin-top: 56px;
+  h1,
+  p {
+    text-align: left;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 8px 0;
+  }
+  p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+  }
+  .thumb-img-mini {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.section-thumb-2 {
+  text-align: left;
+  margin-top: 86px;
+
+  .text-description {
+    margin: auto 0;
+    @include textThumbStyle();
+  }
+
+  .thumb-img {
+    height: 0;
+    position: relative;
+    padding-top: 341px / 560px * 100%;
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+.thumb-card-produk,
+.thumb-card-toko {
+  margin-top: 56px;
+  .title-thumb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-weight: 600;
+      font-size: 38px;
+    }
+  }
+}

@@ -8,10 +8,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: calc(100vw * 14 / 1440);
+  font-size: calc(100vw * 16 / 1440);
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container{
+  padding: 0 20px;
+}
+
+@media(min-width:1080px) {
+  .container{
+    padding: 0 9rem;
+  }
+
+}
+
+@media(min-width:1920px) {
+  .container{
+
+    padding: 0;
+  }
+}
+
+

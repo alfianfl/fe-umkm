@@ -9,15 +9,14 @@
     background: #cccccc;
     border-radius: 8px;
   }
-  .require{
+  .require {
     border: 3px solid rgba(248, 100, 0, 0.3);
     border-radius: 8px;
   }
-  .valid{
-    border: 2px solid #EFEEF3;
-
+  .valid {
+    border: 2px solid #efeef3;
   }
-  .icon-eye{
+  .icon-eye {
     position: relative;
     top: 2px;
     cursor: pointer;
@@ -26,10 +25,9 @@
   .form-body {
     font-size: 1rem;
 
-    .form-input{
-  
-box-sizing: border-box;
-border-radius: 8px;
+    .form-input {
+      box-sizing: border-box;
+      border-radius: 8px;
     }
   }
   .regist-link {
