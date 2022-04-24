@@ -1,0 +1,75 @@
+.site-detail-produk {
+  .title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .price {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 36px;
+    color: #f86400;
+    margin-top: 1rem;
+  }
+
+  .detail-produk {
+    font-size: 20px;
+    margin-top: 36px;
+  }
+  .kategori {
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  .description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 16px 0;
+  }
+  .thumb-img-detail {
+    margin-bottom: 16px;
+ 
+    img {
+        width: 348px;
+        height: 348px;
+      object-fit: cover;
+      object-position: center center;
+
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  .thumb-mini-img {
+    display: flex;
+    justify-content: space-between;
+
+    img {
+      width: 82px;
+      height: 82px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .lokasi {
+    span {
+      font-size: 14px;
+    }
+    .title {
+      font-size: 14px;
+    }
+  }
+  .toko {
+    border-top: 1px solid #d4d4d4;
+    padding-top: 20px;
+  }
+  .button-toko {
+    font-size: 14px;
+  }
+}

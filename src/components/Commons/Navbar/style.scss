@@ -1,4 +1,4 @@
-@mixin underlineStyle{
+@mixin underlineStyle {
   background: none repeat scroll 0 0 transparent;
   bottom: -6px;
   content: '';
@@ -16,25 +16,24 @@
   right: 0;
   z-index: 9999;
 
-  .container{
+  .container {
     padding: 0 20px;
 
-    @media(min-width:1080px) {
+    @media (min-width: 1080px) {
       padding: 0 9rem;
     }
 
-    @media(min-width:1920px) {
+    @media (min-width: 1920px) {
       padding: 0;
     }
   }
-  
 
-  .button-auth{
-    background-color: #F86400;
+  .button-auth {
+    background-color: #f86400;
     color: #fff;
     font-weight: 600;
 
-    &:hover{
+    &:hover {
       background-color: #d15604;
     }
   }
@@ -67,7 +66,6 @@
     .navLink:hover:after {
       width: 120%;
       left: -10%;
-      
     }
   }
 }

@@ -20,6 +20,10 @@ const navList = [
     path: '/produk'
   },
   {
+    name: 'Pelatihan',
+    path: '/pelatihan'
+  },
+  {
     name: 'Diskusi',
     path: '/diskusi'
   }

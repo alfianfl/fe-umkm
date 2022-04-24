@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { loginAPI } from '../../models/AuthAPI';
 import './style.scss';
 
 function Login() {
@@ -18,7 +19,15 @@ function Login() {
     if (inputValue.email === '' || inputValue.password === '') {
       setIsRequire(true);
     } else {
-      alert('anda berhasil login');
+      const payload = {
+        username: inputValue.email,
+        password: inputValue.password
+      };
+      loginAPI(payload)
+        .then((res) => {console.log(res)})
+        .catch((err) => {
+          console.log(err);
+        });
       setIsRequire(false);
     }
   };
