@@ -130,7 +130,7 @@ function Home() {
       <section className="thumb-card-toko container mx-auto">
         <div className="title-thumb ">
           <h1>Toko UMKM Kota Cimahi</h1>
-          <button className="bg-orange-500 hover:bg-orange-600  font-bold text-lg text-white rounded shadow-md px-6 py-1">
+          <button className="button-more bg-orange-500 hover:bg-orange-600  font-bold text-lg text-white rounded shadow-md px-6 py-1">
             Lihat Toko UMKM
           </button>
         </div>
@@ -143,7 +143,7 @@ function Home() {
       <section className="thumb-card-produk container mx-auto">
         <div className="title-thumb">
           <h1>Produk UMKM Kota Cimahi</h1>
-          <button className="bg-orange-500 hover:bg-orange-600 font-bold text-lg text-white rounded shadow-md px-6 py-1">
+          <button className="button-more bg-orange-500 hover:bg-orange-600 font-bold text-lg text-white rounded shadow-md px-6 py-1">
             Lihat Produk UMKM
           </button>
         </div>

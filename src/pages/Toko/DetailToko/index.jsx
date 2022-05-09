@@ -30,7 +30,7 @@ function DetailToko() {
               <h1 className="title font-bold">Nama Toko UMKM</h1>
               <span className="lokasi">
                 <img src={locationIcon} alt="" />{' '}
-                <span>Kategori Jenis Usaha Toko</span>{' '}
+                <span className='ml-1'>Kategori Jenis Usaha Toko</span>{' '}
               </span>
             </div>
           </div>
@@ -45,7 +45,7 @@ function DetailToko() {
           </div>
           <div className="lokasi">
             <img src={locationIcon} alt="" />{' '}
-            <span>
+            <span className='ml-1'>
               Perum Indogreen Blok E5 No 5 RT 5 RW 4, Gunung Sari, Citeureup,
               Kab.Bogor, Jawa Barat, 16810
             </span>{' '}

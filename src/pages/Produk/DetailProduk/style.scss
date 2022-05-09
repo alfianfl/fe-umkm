@@ -29,10 +29,11 @@
   }
   .thumb-img-detail {
     margin-bottom: 16px;
- 
+    width: 348px;
+    height: 348px;
     img {
-        width: 348px;
-        height: 348px;
+      width: 100%;
+      height: auto;
       object-fit: cover;
       object-position: center center;
 

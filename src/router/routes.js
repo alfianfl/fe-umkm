@@ -1,3 +1,6 @@
+import Forum from '../pages/Forum';
+import AddDiscussion from '../pages/Forum/AddDiscussion';
+import DetailForum from '../pages/Forum/DetailForum';
 import Home from '../pages/Home';
 import Login  from '../pages/Login';
 import Peta from '../pages/Peta';
@@ -71,5 +74,29 @@ export const routes = [
     },
     exact: true,
     component: DetailProduk
+  },
+  {
+    name: 'Forum',
+    path: () => {
+      return '/diskusi';
+    },
+    exact: true,
+    component: Forum
+  },
+  {
+    name: 'DetailForum',
+    path: () => {
+      return '/diskusi/:id';
+    },
+    exact: true,
+    component: DetailForum
+  },
+  {
+    name: 'AddDiscussion',
+    path: () => {
+      return '/diskusi/tambah-diskusi';
+    },
+    exact: true,
+    component: AddDiscussion
   }
 ];
