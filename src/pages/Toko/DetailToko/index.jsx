@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CardProduct from '../../../components/Commons/Card/CardProduct.jsx';
+import CardProduct from '../../../components/Commons/Card/CardProduct';
 import tokoDummy from '../../../assets/img/tokoDummy.png';
 import locationIcon from '../../../assets/img/Iconly.svg';
 import link from '../../../assets/img/link.svg';

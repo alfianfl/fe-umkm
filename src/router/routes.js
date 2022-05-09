@@ -3,6 +3,8 @@ import AddDiscussion from '../pages/Forum/AddDiscussion';
 import DetailForum from '../pages/Forum/DetailForum';
 import Home from '../pages/Home';
 import Login  from '../pages/Login';
+import Pelatihan from '../pages/Pelatihan';
+import DetailPelatihan from '../pages/Pelatihan/DetailPelatihan';
 import Peta from '../pages/Peta';
 import Produk from '../pages/Produk';
 import DetailProduk from '../pages/Produk/DetailProduk';
@@ -98,5 +100,21 @@ export const routes = [
     },
     exact: true,
     component: AddDiscussion
+  },
+  {
+    name: 'Pelatihan',
+    path: () => {
+      return '/pelatihan';
+    },
+    exact: true,
+    component: Pelatihan
+  },
+  {
+    name: 'DetailPelatihan',
+    path: () => {
+      return '/pelatihan/:id';
+    },
+    exact: true,
+    component: DetailPelatihan
   }
 ];

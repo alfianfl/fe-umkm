@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import locationIcon from '../../assets/img/Iconly.svg';
 import kategoriIcon from '../../assets/img/kategori.svg';
-import CardProduct from '../../components/Commons/Card/CardProduct.jsx';
+import CardProduct from '../../components/Commons/Card/CardProduct';
 import './style.scss';
 
 const produkData = [{}, {}, {}, {}, {}, {}, {}, {}, {}];

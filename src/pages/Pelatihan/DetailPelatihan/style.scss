@@ -1,0 +1,37 @@
+.site-detail-pelatihan {
+  h1 {
+    font-size: 32px;
+    line-height: 36px;
+    display: flex;
+    font-weight: 600;
+    text-align: center;
+    color: #033b55;
+  }
+  .thumb-img {
+    position: relative;
+    width: 100%;
+    padding-top: 40%; /* 1:1 Aspect Ratio */
+    img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+  .description {
+    font-size: 18px;
+    line-height: 26px;
+    text-align: justify;
+    color: #323232;
+    font-weight: 600;
+  }
+  .button-pelatihan {
+    font-size: 18px;
+    button {
+      border-radius: 8px;
+    }
+  }
+}

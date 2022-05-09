@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CardProduct from '../../components/Commons/Card/CardProduct.jsx';
-import CardToko from '../../components/Commons/Card/CardToko/index.jsx';
+import CardProduct from '../../components/Commons/Card/CardProduct';
+import CardToko from '../../components/Commons/Card/CardToko';
 import bg1 from '../../assets/img/bg1.png';
 import bg2 from '../../assets/img/bg2.png';
 import bg3 from '../../assets/img/bg3.png';
