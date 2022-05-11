@@ -1,9 +1,10 @@
 import React from 'react';
 import dot from '../../../../assets/img/dot.svg';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
 
 function CardProduct() {
+  const { pathname } = useLocation();
   return (
     <NavLink to="/produk/1">
       <div className="card-product max-w-sm rounded overflow-hidden shadow-lg">
@@ -13,7 +14,7 @@ function CardProduct() {
           alt="Sunset in the mountains"
         />
         <div className="px-6 pt-4">
-          <div className="card-title text-left ">
+          <div className="title text-left ">
             <p className="text-black-600 text-base text-left">
               Deskripsi UMKM. Urna magna sagittis id lut aliquet id nunc
               gravida.
@@ -29,6 +30,16 @@ function CardProduct() {
           </button>
           <img src={dot} alt="" />
         </div>
+        {pathname.includes('/profile') ? (
+          <div className="grid grid-cols-2 gap-4 mb-6 px-6">
+            <button className="bg-blue-900 button-toko font-bold text-sm hover:bg-blue-800  text-white rounded shadow-md px-6 py-2">
+              Edit
+            </button>
+            <button className="bg-red-600 button-toko font-bold text-sm hover:bg-red-500  text-white rounded shadow-md px-6 py-1">
+              Delete
+            </button>
+          </div>
+        ) : null}
       </div>
     </NavLink>
   );

@@ -37,7 +37,7 @@ function EditPassword() {
           <div
             className={`${
               isRequire && inputValue.password === '' ? 'require' : 'valid'
-            } form-input flex items-center bg-white rounded mb-4`}
+            } form-input pr-4 flex items-center bg-white rounded mb-4`}
           >
             <span className="px-3">
               <svg
@@ -89,7 +89,7 @@ function EditPassword() {
           <div
             className={`${
               isRequire && inputValue.confirmPassword === '' ? 'require' : 'valid'
-            } form-input flex items-center bg-white rounded mb-4`}
+            } form-input pr-4 flex items-center bg-white rounded mb-4`}
           >
             <span className="px-3">
               <svg

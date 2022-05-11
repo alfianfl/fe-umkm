@@ -16,9 +16,9 @@ function LayoutUser() {
       <main>
         <Navbar />
         {pathname.includes('/profile') ? (
-          <div className="container sidebar-profile mx-auto mt-40">
+          <div className="container  mx-auto mt-40">
             <div className="grid gap-8 grid-cols-4">
-              <div className="text-left">
+              <div className="text-left sidebar-profile ">
                 <div className="side-profile-thumb p-4">
                   <div className="flex ">
                     <div className="card-title text-left flex ">
@@ -52,14 +52,18 @@ function LayoutUser() {
                   </div>
                   <div className="umkm-section mt-4">
                     <h1 className="section-title">Etalase UMKM</h1>
-                    <div className="side-nav">
-                      <img src={store} alt="" />{' '}
-                      <span className="side-link">Buka Usaha UMKM</span>
-                    </div>
-                    <div className="side-nav">
-                      <img src={product} alt="" />{' '}
-                      <span className="side-link">Produk UMKM</span>
-                    </div>
+                    <NavLink to={'/profile/buka-toko'}>
+                      <div className="side-nav">
+                        <img src={store} alt="" />{' '}
+                        <span className="side-link">Buka Usaha UMKM</span>
+                      </div>
+                    </NavLink>
+                    <NavLink to={'/profile/buka-produk'}>
+                      <div className="side-nav">
+                        <img src={product} alt="" />{' '}
+                        <span className="side-link">Produk UMKM</span>
+                      </div>
+                    </NavLink>
                   </div>
                   <div className="button-keluar w-full mt-4">
                     <button className="bg-orange-500 w-full hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1">
