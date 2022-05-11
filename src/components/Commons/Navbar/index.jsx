@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import user from '../../../assets/img/user.svg';
 import './style.scss';
 
 const navList = [
@@ -35,7 +36,7 @@ function Navbar() {
 
   useEffect(() => {
     setPath(pathname);
-  }, [path]);
+  }, [path, pathname]);
 
   const setActiveNavStyle = (path) => {
     if (path === pathname) {
@@ -92,23 +93,33 @@ function Navbar() {
             {navList.map((nav, index) => (
               <li key={index}>
                 <NavLink
-                  className={`${
-                    setActiveNavStyle(
-                      nav.path
-                    )} navLink block py-2 pr-4 pl-3 rounded  md:p-0`}
+                  className={`${setActiveNavStyle(
+                    nav.path
+                  )} navLink block py-2 pr-4 pl-3 rounded  md:p-0`}
                   to={nav.path}
                 >
                   {nav.name}
                 </NavLink>
               </li>
             ))}
-            <li>
+            {/* <li>
               <NavLink to={'/login'}>
                 <button
                   type="button"
                   className="button-auth rounded-lg text-sm px-5 py-2.5 mr-2  "
                 >
                   Masuk / Daftar
+                </button>
+              </NavLink>
+            </li> */}
+            <li>
+              <NavLink to={'/profile/edit-profile'}>
+                <button
+                  type="button"
+                  className="button-profile rounded-lg text-sm px-5 py-2.5 mr-2  "
+                >
+                  <img src={user} className="mr-2" alt="" />
+                  profile
                 </button>
               </NavLink>
             </li>

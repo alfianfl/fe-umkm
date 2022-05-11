@@ -38,6 +38,18 @@
     }
   }
 
+  .button-profile {
+    background-color: #f86400;
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: #d15604;
+    }
+  }
+
   li {
     margin: 0 2.5rem;
     color: #000000;

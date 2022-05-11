@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from '../../Navbar';
+import Footer from '../../Footer';
 
-function index() {
+function LayoutUserProfile() {
   return (
-    <div>index</div>
-  )
+    <>
+      <main>
+        <Navbar />
+        <Outlet />
+        <Footer />
+      </main>
+    </>
+  );
 }
 
-export default index
+export default LayoutUserProfile;

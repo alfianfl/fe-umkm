@@ -1,0 +1,65 @@
+.sidebar-profile {
+  .thumb-img {
+    width: 74px;
+    height: 74px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .side-profile-thumb {
+    background: #ffffff;
+    border: 1px solid #efeef3;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+
+    .section-title {
+      font-size: 20px;
+      line-height: 28px;
+      color: #323232;
+      font-weight: 600;
+    }
+
+    .side-link {
+      font-size: 14px;
+      color: #323232;
+      font-weight: 600;
+    }
+
+    .side-nav {
+      border-bottom: 1px solid #d4d4d4;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding-bottom: 6px;
+      margin-top: 8px;
+
+      img {
+        margin-right: 12px;
+      }
+    }
+
+    .button-keluar {
+      button {
+        font-size: 15px;
+      }
+    }
+
+    .card-title {
+      h1 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 28px;
+      }
+
+      .email,
+      .no-telp {
+        font-weight: 400;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -8,6 +8,8 @@ import DetailPelatihan from '../pages/Pelatihan/DetailPelatihan';
 import Peta from '../pages/Peta';
 import Produk from '../pages/Produk';
 import DetailProduk from '../pages/Produk/DetailProduk';
+import EditPassword from '../pages/Profile/EditPassword';
+import EditProfile from '../pages/Profile/EditProfile';
 import Register from '../pages/Register';
 import Toko from '../pages/Toko';
 import DetailToko from '../pages/Toko/DetailToko';
@@ -116,5 +118,21 @@ export const routes = [
     },
     exact: true,
     component: DetailPelatihan
+  },
+  {
+    name: 'EditProfile',
+    path: () => {
+      return '/profile/edit-profile';
+    },
+    exact: true,
+    component: EditProfile
+  },
+  {
+    name: 'EditPassword',
+    path: () => {
+      return '/profile/edit-password';
+    },
+    exact: true,
+    component: EditPassword
   }
 ];
