@@ -1,0 +1,18 @@
+.site-tambah-toko {
+  .map-container {
+    overflow: inherit;
+    position: relative;
+  }
+  .mapbox-directions-destination,
+  .mapbox-directions-profile,
+ .directions-icon-reverse {
+    display: none;
+  }
+  .mapboxgl-control-container {
+    position: relative;
+    top: 40px;
+  }
+  .lokasi {
+    height: 400px;
+  }
+}

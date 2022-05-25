@@ -6,7 +6,7 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: calc(100vw * 16 / 1440);
+  font-size: 18px;
   overflow-x: hidden;
   
 }

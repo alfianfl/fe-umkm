@@ -22,7 +22,7 @@ function LayoutUser() {
                 <div className="side-profile-thumb p-4">
                   <div className="flex ">
                     <div className="card-title text-left flex ">
-                      <div className="thumb-img mr-6">
+                      <div className="thumb-img mr-4">
                         <img src={tokoDummy} alt="" />
                       </div>
                       <div className="flex flex-col">

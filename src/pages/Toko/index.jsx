@@ -144,7 +144,7 @@ function Toko() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-4">
             {listToko.map((toko, index) => (
               <CardToko key={index} />
             ))}

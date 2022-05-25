@@ -1,3 +1,4 @@
+import TambahProduk from '../pages/Profile/BuatProduk/TambahProduk';
 import Forum from '../pages/Forum';
 import AddDiscussion from '../pages/Forum/AddDiscussion';
 import DetailForum from '../pages/Forum/DetailForum';
@@ -10,6 +11,7 @@ import Produk from '../pages/Produk';
 import DetailProduk from '../pages/Produk/DetailProduk';
 import BuatProduk from '../pages/Profile/BuatProduk';
 import BukaToko from '../pages/Profile/BukaToko';
+import TambahToko from '../pages/Profile/BukaToko/TambahToko';
 import EditPassword from '../pages/Profile/EditPassword';
 import EditProfile from '../pages/Profile/EditProfile';
 import Register from '../pages/Register';
@@ -152,5 +154,21 @@ export const routes = [
     },
     exact: true,
     component: BuatProduk
+  },
+  {
+    name: 'TambahToko',
+    path: () => {
+      return '/profile/buka-toko/tambah-toko';
+    },
+    exact: true,
+    component: TambahToko
+  },
+  {
+    name: 'TambahProduk',
+    path: () => {
+      return '/profile/buka-produk/tambah-produk';
+    },
+    exact: true,
+    component: TambahProduk
   }
 ];

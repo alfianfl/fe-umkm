@@ -135,7 +135,7 @@ function Produk() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-4">
             {listProduk.map((produk, index) => (
               <CardProduct key={index} />
             ))}

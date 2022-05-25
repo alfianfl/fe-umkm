@@ -134,7 +134,7 @@ function Home() {
             Lihat Toko UMKM
           </button>
         </div>
-        <div className="grid grid-cols-4 gap-12 mt-8">
+        <div className="grid grid-cols-4 gap-4 mt-8">
           {listToko.map((item,i) => (
             <CardToko key={i}/>
           ))}
@@ -147,7 +147,7 @@ function Home() {
             Lihat Produk UMKM
           </button>
         </div>
-        <div className="grid grid-cols-4 gap-12 mt-8">
+        <div className="grid grid-cols-4 gap-4 mt-8">
           {listProduk.map((item,i) => (
             <CardProduct key={i} />
           ))}
