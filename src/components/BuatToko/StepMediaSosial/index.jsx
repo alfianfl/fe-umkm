@@ -9,14 +9,16 @@ const initialValues = {
     {
       platform: '',
       nama: '',
-      link: ''
+      link: '',
+      date:''
     }
   ]
 };
 
 const StepMediaSosial = (props) => {
-  const validate2 = () => {
+  const validate2 = (val) => {
     props.nextStep();
+    console.log(val)
   };
   return (
     // onSubmit={async (values) => {
@@ -25,8 +27,11 @@ const StepMediaSosial = (props) => {
     // }}
     <div className="site-media-sosial">
       <div className="title">
-      <h1>Media Sosial / Toko Online</h1>
-      <p>Anda dapat melewati tahap ini apabila belum mempunyai media sosial atau toko online.</p>
+        <h1>Media Sosial / Toko Online</h1>
+        <p>
+          Anda dapat melewati tahap ini apabila belum mempunyai media sosial
+          atau toko online.
+        </p>
       </div>
       <Formik initialValues={initialValues}>
         {({ values }) => (
@@ -40,7 +45,8 @@ const StepMediaSosial = (props) => {
                       className="bg-orange-500 flex items-center hover:bg-orange-600 font-bold text-white rounded text-sm shadow-md px-6 py-2"
                       onClick={() => push({ platform: '', nama: '', link: '' })}
                     >
-                     <img src={plus} className="mr-1" alt="" /> Tambah Media Sosial
+                      <img src={plus} className="mr-1" alt="" /> Tambah Media
+                      Sosial
                     </button>
                   </div>
                   {values.friends.length > 0 &&
@@ -107,6 +113,21 @@ const StepMediaSosial = (props) => {
                                 />
                               </div>
                             </div>
+                            {/* <div className="form-body">
+                              <label className="text-left font-semibold mb-2">
+                                Tanggal Berlaku
+                              </label>
+                              <div
+                                className={`form-input pr-4 flex items-center bg-white rounded mb-4`}
+                              >
+                                <Field
+                                  name={`friends.${index}.date`}
+                                  className="w-full h-12 focus:outline-none pl-2"
+                                  placeholder="Masukan Tanggal"
+                                  type="date"
+                                />
+                              </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -114,7 +135,7 @@ const StepMediaSosial = (props) => {
                 </div>
               )}
             </FieldArray>
-            <ActionButtons {...props} nextStep={validate2} />
+            <ActionButtons {...props} nextStep={() => validate2(values)} />
           </Form>
         )}
       </Formik>

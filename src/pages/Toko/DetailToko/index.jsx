@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CardProduct from '../../../components/Commons/Card/CardProduct';
 import tokoDummy from '../../../assets/img/tokoDummy.png';
 import locationIcon from '../../../assets/img/Iconly.svg';
+import kategoriIcon from '../../../assets/img/kategori.svg';
 import link from '../../../assets/img/link.svg';
 import exp1 from '../../../assets/img/exp1.png';
 import { SwiperSlide } from 'swiper/react';
@@ -29,8 +30,8 @@ function DetailToko() {
             <div>
               <h1 className="title font-bold">Nama Toko UMKM</h1>
               <span className="lokasi">
-                <img src={locationIcon} alt="" />{' '}
-                <span className='ml-1'>Kategori Jenis Usaha Toko</span>{' '}
+                <img src={kategoriIcon} alt="" />{' '}
+                <span className="ml-1">Kategori Jenis Usaha Toko</span>{' '}
               </span>
             </div>
           </div>
@@ -45,24 +46,41 @@ function DetailToko() {
           </div>
           <div className="lokasi">
             <img src={locationIcon} alt="" />{' '}
-            <span className='ml-1'>
+            <span className="ml-1">
               Perum Indogreen Blok E5 No 5 RT 5 RW 4, Gunung Sari, Citeureup,
               Kab.Bogor, Jawa Barat, 16810
             </span>{' '}
           </div>
         </div>
         <div className="div2 grid grid-cols-2 ">
-          <span>No.Telepon: 0891234567</span>
-          <span>Shopee: Toko Jilbab Citeureup</span>
+          <span>
+            {' '}
+            <span className="font-bold"> No.Telepon:</span> 0891234567
+          </span>
+          <span>
+            <span className="font-bold">Shopee:</span> Toko Jilbab Citeureup
+          </span>
 
-          <span>Email: alvian.wadad@gmail.com</span>
-          <span>Tokopedia: Jilbab2</span>
+          <span>
+            <span className="font-bold">Email:</span> alvian.wadad@gmail.com
+          </span>
+          <span>
+            <span className="font-bold">Tokopedia:</span> Jilbab2
+          </span>
 
-          <span>Instagram: @TokoJilbabCiteureup</span>
-          <span>Grab: Toko Jilbab Citeureup</span>
+          <span>
+            <span className="font-bold">Instagram:</span> @TokoJilbabCiteureup
+          </span>
+          <span>
+            <span className="font-bold">Grab:</span> Toko Jilbab Citeureup
+          </span>
 
-          <span>Tiktok: @TokoJilbabCiteureup</span>
-          <span>Gojek: Toko Jilbab Citeureup</span>
+          <span>
+            <span className="font-bold">Tiktok:</span> @TokoJilbabCiteureup
+          </span>
+          <span>
+            <span className="font-bold">Gojek:</span> Toko Jilbab Citeureup
+          </span>
         </div>
       </section>
       <section className="section-carousel">

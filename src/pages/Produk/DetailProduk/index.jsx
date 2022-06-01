@@ -31,7 +31,7 @@ function DetailProduk() {
   return (
     <div className="site-detail-produk container mx-auto mt-40 lg:mt-46">
       <div className="grid grid-cols-4 gap-10">
-        <section className="section-img">
+        <section className="section-img col-span-1">
           <div className="thumb-img-detail">
             <img src={activeImg} alt="" />
           </div>
@@ -41,7 +41,7 @@ function DetailProduk() {
             ))}
           </div>
         </section>
-        <section className="col-span-3 section-description">
+        <section className="col-span-3 ml-20 section-description">
           <h1 className="title">Nama Produk UMKM</h1>
           <p className="price">Rp 70.000</p>
 

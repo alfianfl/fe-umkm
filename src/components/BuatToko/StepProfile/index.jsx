@@ -2,9 +2,7 @@ import ActionButtons from '../ActionButtons';
 import { useState } from 'react';
 const StepProfile = (props) => {
   const [image, setImage] = useState([]);
-  const validate = () => {
-    props.nextStep();
-  };
+
   const handleChangeImage = (e) => {
     if (e.target.files.length < 6 && image.length < 5) {
       const filesArray = Array.from(e.target.files).map((file) =>
@@ -33,6 +31,10 @@ const StepProfile = (props) => {
         />
       );
     });
+  };
+
+  const validate = () => {
+    props.nextStep();
   };
   return (
     <div>

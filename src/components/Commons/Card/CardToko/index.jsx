@@ -2,13 +2,31 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import tokoDummy from '../../../../assets/img/tokoDummy.png';
 import locationIcon from '../../../../assets/img/Iconly.svg';
+import swal from 'sweetalert';
 import './style.scss';
 
 function CardToko() {
   const { pathname } = useLocation();
+  const deleteToko = () => {
+    swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal('Poof! Your imaginary file has been deleted!', {
+          icon: 'success'
+        });
+      } else {
+        swal('Your imaginary file is safe!');
+      }
+    });
+  };
   return (
-    <NavLink to={`/toko/1`}>
-      <div className="card-toko max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="card-toko max-w-sm rounded overflow-hidden shadow-lg">
+      <NavLink to={`/toko/1`}>
         <div className="thumb-img">
           <img
             className="w-full"
@@ -34,24 +52,27 @@ function CardToko() {
             Deskripsi UMKM. Urna magna sagittis id lut aliquet id nunc gravida.
           </p>
         </div>
-        {pathname.includes('/profile') ? (
-          <div className="grid grid-cols-2 gap-4 mb-6 px-6">
-            <button className="bg-blue-900 button-toko font-bold  hover:bg-blue-800  text-white rounded shadow-md px-6 py-2">
-              Edit
-            </button>
-            <button className="bg-red-600 button-toko font-bold  hover:bg-red-500  text-white rounded shadow-md px-6 py-1">
-              Delete
-            </button>
-          </div>
-        ) : (
-          <div className="flex justify-end mb-6 px-6">
-            <button className="bg-orange-500 button-toko font-bold  hover:bg-orange-600 text-lg  text-white rounded shadow-md px-6 py-1">
-              Lihat Toko
-            </button>
-          </div>
-        )}
-      </div>
-    </NavLink>
+      </NavLink>
+      {pathname.includes('/profile') ? (
+        <div className="grid grid-cols-2 gap-4 mb-6 px-6">
+          <button className="bg-blue-900 button-toko font-bold  hover:bg-blue-800  text-white rounded shadow-md px-6 py-2">
+            Edit
+          </button>
+          <button
+            onClick={deleteToko}
+            className="bg-red-600 button-toko font-bold  hover:bg-red-500  text-white rounded shadow-md px-6 py-1"
+          >
+            Delete
+          </button>
+        </div>
+      ) : (
+        <div className="flex justify-end mb-6 px-6">
+          <button className="bg-orange-500 button-toko font-bold  hover:bg-orange-600 text-lg  text-white rounded shadow-md px-6 py-1">
+            Lihat Toko
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

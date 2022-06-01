@@ -13,7 +13,9 @@ import BuatProduk from '../pages/Profile/BuatProduk';
 import BukaToko from '../pages/Profile/BukaToko';
 import TambahToko from '../pages/Profile/BukaToko/TambahToko';
 import EditPassword from '../pages/Profile/EditPassword';
+import EditPasswordAdmin from '../pages/Admin/EditPassword';
 import EditProfile from '../pages/Profile/EditProfile';
+import EditProfileAdmin from '../pages/Admin/EditProfile';
 import Register from '../pages/Register';
 import Toko from '../pages/Toko';
 import DetailToko from '../pages/Toko/DetailToko';
@@ -170,5 +172,21 @@ export const routes = [
     },
     exact: true,
     component: TambahProduk
+  },
+  {
+    name: 'AdminProfile',
+    path: () => {
+      return '/admin/edit-profile';
+    },
+    exact: true,
+    component:EditProfileAdmin
+  },
+  {
+    name: 'AdminPassword',
+    path: () => {
+      return '/admin/edit-password';
+    },
+    exact: true,
+    component:EditPasswordAdmin
   }
 ];

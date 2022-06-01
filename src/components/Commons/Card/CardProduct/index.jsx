@@ -2,12 +2,30 @@ import React from 'react';
 import dot from '../../../../assets/img/dot.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
+import swal from 'sweetalert';
 
 function CardProduct() {
   const { pathname } = useLocation();
+  const deleteProduk = () => {
+    swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal('Poof! Your imaginary file has been deleted!', {
+          icon: 'success'
+        });
+      } else {
+        swal('Your imaginary file is safe!');
+      }
+    });
+  };
   return (
-    <NavLink to="/produk/1">
-      <div className="card-product max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="card-product max-w-sm rounded overflow-hidden shadow-lg">
+      <NavLink to="/produk/1">
         <img
           className="w-full"
           src="https://v1.tailwindcss.com/img/card-top.jpg"
@@ -30,18 +48,21 @@ function CardProduct() {
           </button>
           <img src={dot} alt="" />
         </div>
-        {pathname.includes('/profile') ? (
-          <div className="grid grid-cols-2 gap-4 mb-6 px-6">
-            <button className="bg-blue-900 button-toko font-bold text-sm hover:bg-blue-800  text-white rounded shadow-md px-6 py-2">
-              Edit
-            </button>
-            <button className="bg-red-600 button-toko font-bold text-sm hover:bg-red-500  text-white rounded shadow-md px-6 py-1">
-              Delete
-            </button>
-          </div>
-        ) : null}
-      </div>
-    </NavLink>
+      </NavLink>
+      {pathname.includes('/profile') ? (
+        <div className="grid grid-cols-2 gap-4 mb-6 px-6">
+          <button className="bg-blue-900 button-toko font-bold text-sm hover:bg-blue-800  text-white rounded shadow-md px-6 py-2">
+            Edit
+          </button>
+          <button
+            onClick={deleteProduk}
+            className="bg-red-600 button-toko font-bold text-sm hover:bg-red-500  text-white rounded shadow-md px-6 py-1"
+          >
+            Delete
+          </button>
+        </div>
+      ) : null}
+    </div>
   );
 }
 
