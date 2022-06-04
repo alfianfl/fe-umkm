@@ -1,7 +1,9 @@
 import ActionButtons from '../ActionButtons';
 import { useState } from 'react';
+import { useParams } from 'react-router';
 const StepProfile = (props) => {
   const [image, setImage] = useState([]);
+  const param = useParams();
 
   const handleChangeImage = (e) => {
     if (e.target.files.length < 6 && image.length < 5) {
@@ -165,13 +167,18 @@ const StepProfile = (props) => {
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {renderPhotos(image)}
               </div>
-
             </div>
           </div>
         </div>
       </div>
       <div className="w-full flex justify-end">
-        <ActionButtons {...props} nextStep={validate} />
+        {param.id ? (
+          <button className="bg-orange-500 hover:bg-orange-600 text-sm text-white font-bold rounded shadow-md px-6 py-2 mt-4">
+            Simpan Perubahan
+          </button>
+        ) : (
+          <ActionButtons {...props} nextStep={validate} />
+        )}
       </div>
     </div>
   );

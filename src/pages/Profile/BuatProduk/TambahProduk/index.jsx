@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { useParams } from 'react-router';
+
 const TambahProduk = (props) => {
+  const param = useParams()
   const [image, setImage] = useState([]);
 
   const handleChangeImage = (e) => {
@@ -36,7 +39,7 @@ const TambahProduk = (props) => {
     <div>
       <div className="site-tambah-toko">
         <div className="card-title p-4">
-          <h1>Tambah Produk</h1>
+          <h1>{ param.id ? 'Edit' : 'Tambah'} Produk</h1>
         </div>
         <div className="p-4 form-content">
           <div className="flex flex-col form-body">

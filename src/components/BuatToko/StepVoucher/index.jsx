@@ -1,9 +1,7 @@
-import ActionButtons from '../ActionButtons';
 import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage, FieldArray } from 'formik';
 import './style.scss';
 import plus from '../../../assets/img/plus.svg';
-import { useParams } from 'react-router';
 
 const initialValues = {
   friends: [
@@ -16,8 +14,7 @@ const initialValues = {
   ]
 };
 
-const StepMediaSosial = (props) => {
-  const param = useParams();
+const StepVoucher = (props) => {
   const validate2 = (val) => {
     props.nextStep();
     console.log(val);
@@ -29,11 +26,7 @@ const StepMediaSosial = (props) => {
     // }}
     <div className="site-media-sosial">
       <div className="title">
-        <h1>Media Sosial / Toko Online</h1>
-        <p>
-          Anda dapat melewati tahap ini apabila belum mempunyai media sosial
-          atau toko online.
-        </p>
+        <h1>Voucher Toko</h1>
       </div>
       <Formik initialValues={initialValues}>
         {({ values }) => (
@@ -44,11 +37,10 @@ const StepMediaSosial = (props) => {
                   <div className="flex justify-end">
                     <button
                       type="button"
-                      className="bg-orange-500 flex items-center hover:bg-orange-600 font-bold text-white rounded text-sm shadow-md px-6 py-2"
+                      className="bg-blue-800 flex items-center hover:bg-blue-700 font-bold text-white rounded text-sm shadow-md px-6 py-2"
                       onClick={() => push({ platform: '', nama: '', link: '' })}
                     >
-                      <img src={plus} className="mr-1" alt="" /> Tambah Media
-                      Sosial
+                      <img src={plus} className="mr-1" alt="" /> Tambah Voucher
                     </button>
                   </div>
                   {values.friends.length > 0 &&
@@ -66,8 +58,22 @@ const StepMediaSosial = (props) => {
                         <div className="form-content">
                           <div className="grid grid-cols-2 gap-2">
                             <div className="form-body">
+                              <label className="text-left font-semibold mb-2">
+                                Nama Voucher Toko / Promosi Toko
+                              </label>
+                              <div
+                                className={`form-input pr-4 flex items-center bg-white rounded mb-4`}
+                              >
+                                <Field
+                                  name={`friends.${index}.nama`}
+                                  className="w-full h-12 focus:outline-none pl-2"
+                                  placeholder="ex: Diskon 10% Semua Menu"
+                                />
+                              </div>
+                            </div>
+                            <div className="form-body">
                               <label className="text-left font-semibold">
-                                Platform Media Sosial / Toko Online
+                                Platform Media Sosial Vocuher
                               </label>
                               <div className="mb-3 w-full">
                                 <Field
@@ -85,25 +91,11 @@ const StepMediaSosial = (props) => {
                                 </Field>
                               </div>
                             </div>
-                            <div className="form-body">
-                              <label className="text-left font-semibold mb-2">
-                                Nama Media Sosial / Toko Online
-                              </label>
-                              <div
-                                className={`form-input pr-4 flex items-center bg-white rounded mb-4`}
-                              >
-                                <Field
-                                  name={`friends.${index}.nama`}
-                                  className="w-full h-12 focus:outline-none pl-2"
-                                  placeholder="Masukan Media Sosial"
-                                />
-                              </div>
-                            </div>
                           </div>
                           <div>
                             <div className="form-body">
                               <label className="text-left font-semibold mb-2">
-                                Link Media Sosial / Toko Online
+                                Link Platform Voucher
                               </label>
                               <div
                                 className={`form-input pr-4 flex items-center bg-white rounded mb-4`}
@@ -115,7 +107,7 @@ const StepMediaSosial = (props) => {
                                 />
                               </div>
                             </div>
-                            {/* <div className="form-body">
+                            <div className="form-body">
                               <label className="text-left font-semibold mb-2">
                                 Tanggal Berlaku
                               </label>
@@ -129,7 +121,7 @@ const StepMediaSosial = (props) => {
                                   type="date"
                                 />
                               </div>
-                            </div> */}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -138,13 +130,9 @@ const StepMediaSosial = (props) => {
               )}
             </FieldArray>
             <div className="w-full flex justify-end">
-              {param.id ? (
-                <button className="bg-orange-500 hover:bg-orange-600 text-sm text-white font-bold rounded shadow-md px-6 py-2 mt-4">
-                  Simpan Perubahan
-                </button>
-              ) : (
-                <ActionButtons {...props} nextStep={() => validate2(values)} />
-              )}
+              <button className="bg-orange-500 hover:bg-orange-600 text-sm text-white font-bold rounded shadow-md px-6 py-2 mt-4">
+                Simpan Perubahan
+              </button>
             </div>
           </Form>
         )}
@@ -152,4 +140,4 @@ const StepMediaSosial = (props) => {
     </div>
   );
 };
-export default StepMediaSosial;
+export default StepVoucher;

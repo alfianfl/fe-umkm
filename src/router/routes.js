@@ -19,6 +19,7 @@ import EditProfileAdmin from '../pages/Admin/EditProfile';
 import Register from '../pages/Register';
 import Toko from '../pages/Toko';
 import DetailToko from '../pages/Toko/DetailToko';
+import EditToko from '../pages/Profile/BukaToko/EditToko';
 
 export const routes = [
   {
@@ -174,6 +175,14 @@ export const routes = [
     component: TambahProduk
   },
   {
+    name: 'TambahProduk',
+    path: () => {
+      return '/profile/buka-produk/tambah-produk/:id';
+    },
+    exact: true,
+    component: TambahProduk
+  },
+  {
     name: 'AdminProfile',
     path: () => {
       return '/admin/edit-profile';
@@ -188,5 +197,13 @@ export const routes = [
     },
     exact: true,
     component:EditPasswordAdmin
+  },
+  {
+    name: 'EditToko',
+    path: () => {
+      return '/profile/buka-toko/edit-toko/:id';
+    },
+    exact: true,
+    component:EditToko
   }
 ];

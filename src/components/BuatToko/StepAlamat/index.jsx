@@ -2,12 +2,14 @@ import ActionButtons from '../ActionButtons';
 import mapboxgl from 'mapbox-gl';
 import React, { useEffect, useRef, useState } from 'react';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/src/directions';
+import { useParams } from 'react-router';
 import './style.scss';
 mapboxgl.accessToken =
   'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
 const StepAlamat = (props) => {
   const mapContainerRef = useRef(null);
+  const param = useParams();
 
   const [lng, setLng] = useState(107.523612);
   const [lat, setLat] = useState(-6.8862572);
@@ -58,7 +60,7 @@ const StepAlamat = (props) => {
                   className="text-left font-semibold mb-"
                   htmlFor="Kecamatan"
                 >
-                  Kecamatan 
+                  Kecamatan
                 </label>
                 <div className="mb-3 w-full">
                   <select
@@ -104,14 +106,20 @@ const StepAlamat = (props) => {
             <label className="text-left font-semibold mb-2" htmlFor="alamat">
               Lokasi Toko
             </label>
-            <div className='grid'>
+            <div className="grid">
               <div className="map-container" ref={mapContainerRef} />
             </div>
           </div>
         </div>
       </div>
       <div className="w-full flex justify-end">
-        <ActionButtons {...props} />
+        {param.id ? (
+          <button className="bg-orange-500 hover:bg-orange-600 text-sm text-white font-bold rounded shadow-md px-6 py-2 mt-4">
+            Simpan Perubahan
+          </button>
+        ) : (
+          <ActionButtons {...props} />
+        )}
       </div>
     </div>
   );

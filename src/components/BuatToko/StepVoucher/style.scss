@@ -1,0 +1,62 @@
+.site-media-sosial {
+  .title {
+    border-bottom: 1px solid #efeef3;
+
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 20px;
+      line-height: 28px;
+      font-weight: 600;
+      color: #323232;
+    }
+  }
+
+  .thumb-media-sosial {
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid #989898;
+border-radius: 8px;
+
+    .thumb-image {
+      width: 80px;
+      height: 80px;
+      background: #cccccc;
+      border-radius: 8px;
+    }
+    .button-save {
+      button {
+        font-size: 15px;
+        border-radius: 8px;
+      }
+    }
+    .form-body {
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      .form-input {
+        border: 2px solid #efeef3;
+        box-sizing: border-box;
+        border-radius: 8px;
+      }
+
+      .location-svg {
+        bottom: 33px;
+        position: relative;
+      }
+
+      textarea {
+        height: 100px;
+      }
+    }
+    .regist-link {
+      cursor: pointer;
+      color: #0e65a3;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

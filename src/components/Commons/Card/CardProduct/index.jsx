@@ -51,9 +51,13 @@ function CardProduct() {
       </NavLink>
       {pathname.includes('/profile') ? (
         <div className="grid grid-cols-2 gap-4 mb-6 px-6">
-          <button className="bg-blue-900 button-toko font-bold text-sm hover:bg-blue-800  text-white rounded shadow-md px-6 py-2">
-            Edit
-          </button>
+          <div className="w-full">
+            <NavLink to="/profile/buka-produk/tambah-produk/1">
+              <button className="bg-blue-900 button-toko w-full font-bold  hover:bg-blue-800  text-white rounded shadow-md px-6 py-2">
+                Edit
+              </button>
+            </NavLink>
+          </div>
           <button
             onClick={deleteProduk}
             className="bg-red-600 button-toko font-bold text-sm hover:bg-red-500  text-white rounded shadow-md px-6 py-1"
