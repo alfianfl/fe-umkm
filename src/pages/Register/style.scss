@@ -4,6 +4,14 @@
   margin-top: 10rem;
   margin-bottom: 10rem;
 
+  .require {
+    border: 3px solid rgba(248, 100, 0, 0.3);
+    border-radius: 8px;
+  }
+  .valid {
+    border: 2px solid #efeef3;
+  }
+
   .thumb-image {
     width: 80px;
     height: 80px;
@@ -14,7 +22,7 @@
     font-size: 1rem;
 
     .form-input {
-      border: 2px solid #efeef3;
+      // border: 2px solid #efeef3;
       box-sizing: border-box;
       border-radius: 8px;
     }

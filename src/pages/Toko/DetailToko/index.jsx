@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardProduct from '../../../components/Commons/Card/CardProduct';
 import tokoDummy from '../../../assets/img/tokoDummy.png';
 import locationIcon from '../../../assets/img/Iconly.svg';
 import kategoriIcon from '../../../assets/img/kategori.svg';
 import link from '../../../assets/img/link.svg';
 import exp1 from '../../../assets/img/exp1.png';
+import ig from '../../../assets/img/instagram.jpg';
+import tp from '../../../assets/img/tokopedia.png';
+import sh from '../../../assets/img/shopee.png';
+import em from '../../../assets/img/email.jpg';
+import wa from '../../../assets/img/wa.png';
+import tk from '../../../assets/img/tiktok.png';
+import grab from '../../../assets/img/grab.png';
+import gojek from '../../../assets/img/gojek.png';
 import { SwiperSlide } from 'swiper/react';
 import './style.scss';
 import {
   SwiperDefault,
   SwiperAuto
 } from '../../../components/Commons/SwiperContainer/index.jsx';
+import { getTokoByIdAPI } from '../../../models/TokoAPI';
+import { useParams } from 'react-router-dom';
+import { getProductByTokoAPI } from '../../../models/ProductAPI';
+import { loaderCard } from '../../../helpers';
 
 const voucherData = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
 
@@ -18,104 +30,197 @@ const produkData = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 function DetailToko() {
   const [listProduk, setListProduk] = useState(produkData);
+  const [toko, setToko] = useState({});
   const [listVoucher, setListVoucher] = useState(voucherData);
+  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+
+  const getLink = (name) => {
+    return toko.sosial_media
+      ?.filter((item) => item.platform_sosmed === name)
+      .map((item) => item.link_sosmed).length === 0
+      ? '#'
+      : toko.sosial_media
+          ?.filter((item) => item.platform_sosmed === name)
+          .map((item) => item.link_sosmed);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getProductByTokoAPI(id)
+      .then((res) => {
+        setListProduk(res.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    getTokoByIdAPI(id)
+      .then((res) => {
+        setToko(res.data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(true);
+      });
+  }, []);
   return (
     <div className="container mx-auto mt-40 lg:mt-46">
       <section className="section-thumb-toko grid grid-cols-2 gap-8 mb-16">
         <div className="div1">
           <div className="card-title text-left flex ">
-            <div className="thumb-img mr-6">
+            <div className="thumb-img5 mr-6">
               <img src={tokoDummy} alt="" />
             </div>
             <div>
-              <h1 className="title font-bold">Nama Toko UMKM</h1>
-              <span className="lokasi">
+              <h1 className="title font-bold">{toko.nama_toko}</h1>
+              <span className="lokasi items-center">
                 <img src={kategoriIcon} alt="" />{' '}
-                <span className="ml-1">Kategori Jenis Usaha Toko</span>{' '}
+                <span className="ml-1">
+                  Kategori Toko : {toko.sektor_usaha}
+                </span>{' '}
               </span>
             </div>
           </div>
           <div className="description-toko my-6">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor
-              velit vulputate vitae, magnis eu tincidunt volutpat cursus magna.
-              Leo ultricies sit nunc facilisi leo id nulla leo. Risus pharetra
-              in at orci nisi eget. Nibh blandit.Risus pharetra in at orci nisi
-              eget. Nibh blandit. lolaist
-            </p>
+            <p className="text-justify">{toko.deskripsi_toko}</p>
           </div>
           <div className="lokasi">
             <img src={locationIcon} alt="" />{' '}
             <span className="ml-1">
-              Perum Indogreen Blok E5 No 5 RT 5 RW 4, Gunung Sari, Citeureup,
-              Kab.Bogor, Jawa Barat, 16810
+              {toko.alamat}, {toko.kode_pos}, {toko.kecamatan}
             </span>{' '}
           </div>
         </div>
         <div className="div2 grid grid-cols-2 ">
           <span>
             {' '}
-            <span className="font-bold"> No.Telepon:</span> 0891234567
+            <span className="font-bold flex items-center">
+              <img src={wa} className="mr-2" alt="" /> No.Telepon :{' '}
+              {toko.telp_toko}
+            </span>
           </span>
-          <span>
-            <span className="font-bold">Shopee:</span> Toko Jilbab Citeureup
-          </span>
+          <a className="link-sosmed" href={getLink('Shopee')}>
+            <span className="font-bold flex items-center">
+              {' '}
+              <img src={sh} className="mr-2" alt="" /> Shopee :{' '}
+              {toko.sosial_media
+                ?.filter((item) => item.platform_sosmed === 'Shopee')
+                .map((item) => '@' + item.nama_sosmed).length === 0
+                ? '-'
+                : toko.sosial_media
+                    ?.filter((item) => item.platform_sosmed === 'Shopee')
+                    .map((item) => '@' + item.nama_sosmed)}
+            </span>{' '}
+          </a>
 
           <span>
-            <span className="font-bold">Email:</span> alvian.wadad@gmail.com
+            <span className="font-bold flex items-center  mt-4">
+              <img src={em} className="mr-2" alt="" />
+              Email : {toko.email_toko}
+            </span>
           </span>
-          <span>
-            <span className="font-bold">Tokopedia:</span> Jilbab2
-          </span>
+          <a className="link-sosmed" href={getLink('Tokopedia')}>
+            <span className="font-bold flex items-center  mt-4">
+              <img src={tp} className="mr-2" alt="" />
+              Tokopedia :{' '}
+              {toko.sosial_media
+                ?.filter((item) => item.platform_sosmed === 'Tokopedia')
+                .map((item) => '@' + item.nama_sosmed).length === 0
+                ? '-'
+                : toko.sosial_media
+                    ?.filter((item) => item.platform_sosmed === 'Tokopedia')
+                    .map((item) => '@' + item.nama_sosmed)}
+            </span>{' '}
+          </a>
 
-          <span>
-            <span className="font-bold">Instagram:</span> @TokoJilbabCiteureup
-          </span>
-          <span>
-            <span className="font-bold">Grab:</span> Toko Jilbab Citeureup
-          </span>
+          <a className="link-sosmed" href={getLink('Instagram')}>
+            <span className="font-bold flex items-center  mt-4">
+              <img src={ig} className="mr-2" alt="" />
+              Instagram :{' '}
+              {toko.sosial_media
+                ?.filter((item) => item.platform_sosmed === 'Instagram')
+                .map((item) => '@' + item.nama_sosmed).length === 0
+                ? '-'
+                : toko.sosial_media
+                    ?.filter((item) => item.platform_sosmed === 'Instagram')
+                    .map((item) => '@' + item.nama_sosmed)}
+            </span>{' '}
+          </a>
+          <a className="link-sosmed" href={getLink('Grab')}>
+            <span className="font-bold flex items-center  mt-4">
+              <img src={grab} className="mr-2" alt="" />
+              Grab :{' '}
+              {toko.sosial_media
+                ?.filter((item) => item.platform_sosmed === 'Grab')
+                .map((item) => '@' + item.nama_sosmed).length === 0
+                ? '-'
+                : toko.sosial_media
+                    ?.filter((item) => item.platform_sosmed === 'Grab')
+                    .map((item) => '@' + item.nama_sosmed)}
+            </span>{' '}
+          </a>
 
-          <span>
-            <span className="font-bold">Tiktok:</span> @TokoJilbabCiteureup
-          </span>
-          <span>
-            <span className="font-bold">Gojek:</span> Toko Jilbab Citeureup
-          </span>
+          <a className="link-sosmed" href={getLink('Tiktok')}>
+            <span className="font-bold flex items-center  mt-4">
+              <img src={tk} className="mr-2" alt="" />
+              Tiktok :{' '}
+              {toko.sosial_media
+                ?.filter((item) => item.platform_sosmed === 'Tiktok')
+                .map((item) => '@' + item.nama_sosmed).length === 0
+                ? '-'
+                : toko.sosial_media
+                    ?.filter((item) => item.platform_sosmed === 'Tiktok')
+                    .map((item) => '@' + item.nama_sosmed)}
+            </span>{' '}
+          </a>
+          <a className="link-sosmed" href={getLink('Gokej')}>
+            <span className="font-bold flex items-center  mt-4">
+              <img src={gojek} className="mr-2" alt="" />
+              Gojek :{' '}
+              {toko.sosial_media
+                ?.filter((item) => item.platform_sosmed === 'Gojek')
+                .map((item) => '@' + item.nama_sosmed).length === 0
+                ? '-'
+                : toko.sosial_media
+                    ?.filter((item) => item.platform_sosmed === 'Gokek')
+                    .map((item) => '@' + item.nama_sosmed)}
+            </span>{' '}
+          </a>
         </div>
       </section>
       <section className="section-carousel">
+        <h1>Galeri Toko</h1>
         <SwiperDefault>
-          <SwiperSlide>
-            <div className="thumb-img">
-              <img className="aspect-ratio" src={exp1} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="thumb-img">
-              <img className="aspect-ratio" src={exp1} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="thumb-img">
-              <img className="aspect-ratio" src={exp1} alt="" />
-            </div>
-          </SwiperSlide>
+          {toko.galeri?.map((item, i) => (
+            <SwiperSlide key={i}>
+              <div className="thumb-img">
+                <img className="aspect-ratio" src={item.url} alt="" />
+              </div>
+            </SwiperSlide>
+          ))}
         </SwiperDefault>
       </section>
       <section className="section-voucher">
         <h1>Voucher Toko</h1>
         <SwiperAuto>
-          {listVoucher.map((item, i) => (
+          {toko?.promos?.map((item, i) => (
             <SwiperSlide>
               <div key={i} className="voucher-detail text-left">
-                <p className="voucher-title">Beli 1 Gratis 1</p>
+                <p className="voucher-title">{item.nama_promo}</p>
                 <div className="flex justify-between items-center">
-                  <p className="platform">Plaform : Tokopedia</p>
+                  <p className="platform font-bold">Plaform : {item.platform}</p>
                   <div className="thumb-img">
                     <img src={link} alt="" />
                   </div>
                 </div>
-                <p className="expired">Belaku sampai : 31 April 2022</p>
+                <p className="expired font-bold">Belaku sampai : {item.masa_berlaku}</p>
               </div>
             </SwiperSlide>
           ))}
@@ -142,12 +247,26 @@ function DetailToko() {
 
           <h1 className="ml-4 font-bold">Produk UMKM</h1>
         </div>
-
-        <div className="grid grid-cols-4 gap-8">
-          {listProduk.map((produk, index) => (
-            <CardProduct key={index} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center">{loaderCard()}</div>
+        ) : listProduk.length === 0 ? (
+          <div className="flex justify-center">
+            <div className="w-1/4">
+              <div>
+                <img src="https://img.freepik.com/free-vector/no-data-concept-illustration_203587-28.jpg?w=2000" />
+                <h1 className="text-center">
+                  Oppss...Toko belum memiliki produk
+                </h1>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-4 gap-8">
+            {listProduk.map((item, index) => (
+              <CardProduct item={item} key={index} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

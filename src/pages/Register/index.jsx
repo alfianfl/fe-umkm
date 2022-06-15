@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate  } from 'react-router-dom';
+import { registerAPI } from '../../models/AuthAPI';
+import swal from 'sweetalert';
 import './style.scss';
 
 const registInputList = [
@@ -107,7 +109,7 @@ const registInputList = [
     value: ''
   },
   {
-    name: 'No Telepon',
+    name: 'No Telp',
     placeholder: 'Pastikan No Telepon aktif',
     svg: (
       <svg
@@ -178,7 +180,8 @@ const registInputList = [
 
 function Register() {
   const [inputForm, setInputForm] = useState(registInputList);
-  const [isRequire, setIsRequire]= useState(false)
+  const [isRequire, setIsRequire] = useState(false);
+  let navigate = useNavigate ();
 
   const inputChangeHandler = (e, id) => {
     const { value } = e.target;
@@ -191,12 +194,37 @@ function Register() {
   };
 
   const buttonRegistHandler = () => {
-    // if (inputValue.email === '' || inputValue.password === '') {
-    //   setIsRequire(true);
-    // } else {
-    //   alert('anda berhasil Daftar');
-    //   setIsRequire(false);
-    // }
+    if (inputForm.some((item) => item.value === '')) {
+      setIsRequire(true);
+    } else {
+      const payload = {
+        nama_lengkap: inputForm[0].value,
+        nik: inputForm[1].value,
+        tanggal_lahir: inputForm[2].value,
+        email: inputForm[3].value,
+        no_telp: inputForm[4].value,
+        password: inputForm[5].value,
+        alamat: inputForm[6].value
+      };
+      registerAPI(payload)
+        .then((res) => {
+          if(res.data.message === 'Email telah digunakan'){
+            swal({
+              title: res.data.message,
+              text: 'Harap masukan kembali email yang lain',
+              icon: 'warning'
+            });
+          } else{
+            swal(res.data.message).then((value) => {
+              navigate('/login');
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      setIsRequire(false);
+    }
   };
   return (
     <div className="form-register max-w-md mt-20 mx-auto bg-white rounded my-8">
@@ -215,7 +243,13 @@ function Register() {
               <label className="text-left font-semibold mb-2" htmlFor="nama">
                 {input.name}
               </label>
-              <div className="form-input flex items-center bg-white rounded mb-4">
+              <div
+                className={`${
+                  isRequire && inputForm[index].value === ''
+                    ? 'require'
+                    : 'valid'
+                } form-input flex items-center bg-white rounded mb-4`}
+              >
                 <span className="px-3">{input.svg}</span>
                 {input.name === 'Alamat' ? (
                   <textarea
@@ -244,7 +278,10 @@ function Register() {
             </div>
           ))}
           <div className="button-login w-full my-4">
-            <button onClick={buttonRegistHandler} className="bg-orange-500 w-full hover:bg-orange-600 text-white rounded shadow-md px-6 py-2">
+            <button
+              onClick={buttonRegistHandler}
+              className="bg-orange-500 w-full hover:bg-orange-600 text-white rounded shadow-md px-6 py-2"
+            >
               Daftar
             </button>
           </div>

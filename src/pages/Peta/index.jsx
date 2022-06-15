@@ -1,67 +1,74 @@
 import mapboxgl from 'mapbox-gl';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import geoJson from './chicago-parks.json';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/src/directions';
-import tokoDummy from '../../assets/img/tokoDummy.png';
 import locationIcon from '../../assets/img/Iconly.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchToko } from '../../redux/actions/tokoAction';
 import phoneIcon from '../../assets/img/phone.svg';
 import filterIcon from '../../assets/img/FILTER.png';
 import { NavLink } from 'react-router-dom';
-
 import './style.css';
+import { loaderCard, loaderOverlay, trimString } from '../../helpers';
+import { getTokoAPI } from '../../models/TokoAPI';
+
+// mapboxgl.accessToken =
+//   'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
 mapboxgl.accessToken =
-  'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
+  'pk.eyJ1Ijoic2VlZGVkdXNlcjIiLCJhIjoiY2w0Ymp3dWdhMW4wYjNqbHJpNmlyNmNobSJ9.SOwCYgpXJb_hfw2QsIbQzQ';
 
-const Marker = ({ onClick, children, feature }) => {
+const Marker = ({ onClick, children, feature, data }) => {
   const [activeCardToko, setActiveCardToko] = useState(false);
+  const [id, setId] = useState(0);
   const _onClick = (e) => {
     setActiveCardToko(!activeCardToko);
+    setId(data._id);
   };
 
   return (
     <>
-      <a href="/toko/1">
-        <div
-          style={{ display: activeCardToko ? 'block' : 'none' }}
-          className="card-toko-point"
-        >
-          <div className=" max-w-sm rounded overflow-hidden shadow-lg">
-            <div className="thumb-img">
-              <img
-                className="w-full"
-                src="https://v1.tailwindcss.com/img/card-top.jpg"
-                alt="Sunset in the mountains"
-              />
-            </div>
-            <div className="px-4 py-2">
-              <div className="title text-left">
-                <div>
-                  {' '}
-                  <div className="flex items-center justify-between">
-                    <h1 className="font-bold">The Coldest Sunset</h1>
-
+      <div
+        style={{
+          display: activeCardToko && data._id === id ? 'block' : 'none'
+        }}
+        className="card-toko-point"
+      >
+        <div className=" max-w-sm rounded overflow-hidden shadow-lg">
+          <div className="thumb-img">
+            <img
+              className="w-full aspect-ratio"
+              src={data.galeri[0].url}
+              alt="Sunset in the mountains"
+            />
+          </div>
+          <div className="px-4 py-2">
+            <div className="title text-left">
+              <div>
+                {' '}
+                <div className="flex items-center justify-between">
+                  <h1 className="font-bold">{data.nama_toko}</h1>
+                  <a href={`/toko/${data._id}`}>
                     <button className="bg-orange-500 hover:bg-orange-600 font-bold  text-white rounded shadow-md px-2 ml-2  py-2">
                       Lihat toko
                     </button>
-                  </div>
-                  <span className="lokasi flex mt-2">
-                    {' '}
-                    <img className="mr-2" src={locationIcon} alt="" />{' '}
-                    <span>Lokasi Kecamatan</span>{' '}
-                  </span>
-                  <span className="phone flex">
-                    {' '}
-                    <img className="mr-2" src={phoneIcon} alt="" />{' '}
-                    <span>089524013023</span>{' '}
-                  </span>
+                  </a>
                 </div>
+                <span className="lokasi flex mt-2">
+                  {' '}
+                  <img className="mr-2" src={locationIcon} alt="" />{' '}
+                  <span>{data.kecamatan}</span>{' '}
+                </span>
+                <span className="phone flex">
+                  {' '}
+                  <img className="mr-2" src={phoneIcon} alt="" />{' '}
+                  <span>{data.telp_toko}</span>{' '}
+                </span>
               </div>
             </div>
           </div>
         </div>
-      </a>
+      </div>
 
       <button onClick={_onClick} className="marker">
         {children}
@@ -71,33 +78,29 @@ const Marker = ({ onClick, children, feature }) => {
 };
 
 const dataKategori = [
-  'Makanan',
-  'Minuman',
-  'Pakaian',
-  'Elektronik',
-  'Aksesoris',
-  'Kerajinan',
-  'Mainan dan Hobi'
+  'Budaya',
+  'Fashion',
+  'Kuliner',
+  'Jasa',
+  'Konveksi',
+  'Agribisnis'
 ];
 const Peta = () => {
   const mapContainerRef = useRef(null);
-
+  const listToko = useSelector((state) => state.listToko.toko);
+  const [totalToko, setTotalToko] = useState([]);
+  const [activeKategori, setActiveKategori] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const loading = useSelector((state) => state.listToko.loading);
+  const dispatch = useDispatch();
   const [activeFilter, setActiveFilter] = useState(false);
   const [lng, setLng] = useState(107.523612);
   const [lat, setLat] = useState(-6.8862572);
   const [zoom, setZoom] = useState(10);
-  const [listToko, setListToko] = useState([
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {}
-  ]);
+
+  useEffect(() => {
+    dispatch(fetchToko());
+  }, [dispatch]);
 
   // Initialize map when component mounts
   useEffect(() => {
@@ -109,22 +112,27 @@ const Peta = () => {
     });
 
     map.addControl(
-      new MapboxDirections({ accessToken: mapboxgl.accessToken }),
+      new MapboxDirections({
+        accessToken: mapboxgl.accessToken,
+        controls: { instructions: true }
+      }),
       'top-right'
     );
 
     // Render custom marker components
-    geoJson.features.forEach((feature) => {
+    listToko.forEach((feature) => {
       // Create a React ref
       const ref = React.createRef();
       // Create a new DOM node and save it to the React ref
       ref.current = document.createElement('div');
       // Render a Marker Component on our new DOM node
-      ReactDOM.render(<Marker feature={feature} />, ref.current);
+      ReactDOM.render(<Marker feature={feature} data={feature} />, ref.current);
+
+      console.log(feature.lokasi.coordinates);
 
       // Create a Mapbox Marker at our new DOM node
       new mapboxgl.Marker(ref.current)
-        .setLngLat(feature.geometry.coordinates)
+        .setLngLat(feature.lokasi.coordinates)
         .addTo(map);
     });
 
@@ -139,18 +147,34 @@ const Peta = () => {
 
     // Clean up on unmount
     return () => map.remove();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [listToko]);
 
-  // const markerClicked = () => {
-  //   setActiveCardToko(!activeCardToko);
-  // };
+  useEffect(()=>{
+    setIsLoading(true)
+    getTokoAPI().then(res=>{
+      setTotalToko(res.data.data)
+      setIsLoading(false)
+    }).catch(err=>{
+      console.log(err);
+      setIsLoading(false)
+    })
+  },[])
 
   const activeDropHandler = () => {
     setActiveFilter(!activeFilter);
   };
 
+  const categoryHandler = (name) => {
+    setActiveKategori(name);
+    dispatch(fetchToko(`/kategori?ctg=${name}`));
+  };
+
   return (
     <div>
+        {
+          isLoading &&
+          loaderOverlay()
+        }
       <div className="sidebarStyle">
         <div className="contailer-side mt-36">
           <div className="input-group relative flex items-stretch w-full px-4">
@@ -196,7 +220,11 @@ const Peta = () => {
               style={{ display: activeFilter ? 'block' : 'none' }}
             >
               {dataKategori.map((item, i) => (
-                <div className="thumb-kategori" key={i}>
+                <div
+                  onClick={() => categoryHandler(item)}
+                  className="thumb-kategori"
+                  key={i}
+                >
                   <span className="kategori">{item}</span>
                 </div>
               ))}
@@ -204,25 +232,34 @@ const Peta = () => {
           </div>
 
           {listToko.map((item, key) => (
-            <NavLink key={key} to={`/toko/1`}>
-              <div  className="list-toko-umkm  px-4 py-2">
-                <h1>Toko Rangginang Sukamakmur</h1>
-                <div className="flex items-start">
-                  <div>
-                    <div className="lokasi flex ">
+            <NavLink key={key} to={`/toko/${item._id}`}>
+              <div className="list-toko-umkm  px-4 py-2">
+                <div className="flex mb-2">
+                  <h1>{item.nama_toko}</h1>{' '}
+                  <button className="bg-orange-500 ml-2 text-white py-1 px-2 rounded-2xl text-sm font-bold ">
+                    {item.sektor_usaha}
+                  </button>
+                </div>
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="col-span-3">
+                    <div className="lokasi flex">
                       <img src={locationIcon} alt="" />{' '}
-                      <span className="ml-2">
-                        Perum Indogreen Blok E5 No 5 RT 5 RW 4, Gunung Sari,
-                        Citeureup, Kab.Bogor, Jawa Barat, 16810
+                      <span className="ml-2 desc">
+                        {trimString(item.deskripsi_toko, 35)} {item.kecamatan},{' '}
+                        {item.kode_pos}
                       </span>{' '}
                     </div>
-                    <div className="telp flex ">
+                    <div className="telp flex">
                       <img src={phoneIcon} alt="" />{' '}
-                      <span className="ml-2">089524013023</span>{' '}
+                      <span className="ml-2">{item.telp_toko}</span>{' '}
                     </div>
                   </div>
-                  <div className="thumb-img">
-                    <img src={tokoDummy} alt="" />
+                  <div className="thumb-img7">
+                    <img
+                      className="rounded-50"
+                      src={item?.galeri[0]?.url}
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
@@ -230,7 +267,57 @@ const Peta = () => {
           ))}
         </div>
       </div>
-      <div className="map-container" ref={mapContainerRef} />
+      {loading ? (
+        <div>{loaderCard()} </div>
+      ) : (
+        <div className="map-container" ref={mapContainerRef} />
+      )}
+      <div className="card-legenda-1 p-4">
+        {
+          activeKategori !== '' ?
+        <div className='div-1'>
+          <h1 style={{ fontSize: '18px' }}>
+            Jumlah UMKM {activeKategori} Dalam setiap Kecamatan
+          </h1>
+          <div className="lokasi flex flex-col mt-2">
+            <span>
+              Cimahi Utara :{' '}
+              {
+                listToko.filter((item) => item.kecamatan === 'Cimahi Utara')
+                  .length
+              }
+            </span>
+            <span>
+              Cimahi Tengah :{' '}
+              {
+                listToko.filter((item) => item.kecamatan === 'Cimahi Tengah')
+                  .length
+              }
+            </span>
+            <span>
+              Cimahi Selatan :{' '}
+              {
+                listToko.filter((item) => item.kecamatan === 'Cimahi Selatan')
+                  .length
+              }
+            </span>
+          </div>
+        </div> : ''
+        }
+        <div className='div-2' style={{top: activeKategori !== '' ? '' : '100px'}}>
+          <h1 style={{ fontSize: '18px' }}>
+            Jumlah Seluruh UMKM di Setiap Sektor Usaha
+          </h1>
+          <div className="lokasi flex flex-col mt-2">
+            {dataKategori.map((items, i) => (
+              <span key={i}>
+                {items} :{' '}
+                {totalToko.filter((item) => item.sektor_usaha === items).length}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

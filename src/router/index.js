@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { routes } from './routes';
 import LayoutUser from '../components/Commons/Layouts/LayoutUser';
-import { ScrollToTop } from '../helpers';
+import { RequireAuth, ScrollToTop } from '../helpers';
 
 function router() {
   return (
@@ -12,7 +12,15 @@ function router() {
           {routes.map((route, index) => (
             <Route
               key={index}
-              element={<route.component />}
+              element={
+                route.name === 'Login' || route.name === 'Register' ? (
+                  <route.component />
+                ) : (
+                  <RequireAuth>
+                    <route.component />
+                  </RequireAuth>
+                )
+              }
               path={route.path()}
             />
           ))}

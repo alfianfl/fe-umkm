@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useLocation, NavLink } from 'react-router-dom';
+import { Outlet, useLocation, NavLink, useNavigate } from 'react-router-dom';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
 import tokoDummy from '../../../../assets/img/tokoDummy.png';
@@ -8,9 +8,25 @@ import user from '../../../../assets/img/user2.svg';
 import lock from '../../../../assets/img/lock.svg';
 import product from '../../../../assets/img/product.svg';
 import './style.scss';
+import { useAuth } from '../../../../context/authContext';
+import { logoutAPI } from '../../../../models/AuthAPI';
 
 function LayoutUser() {
   const { pathname } = useLocation();
+
+  const auth = useAuth();
+  let navigate = useNavigate();
+
+  const logoutHandler = () => {
+    logoutAPI()
+      .then((res) => {
+        auth.logout();
+        navigate('/login')
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <main>
@@ -66,7 +82,7 @@ function LayoutUser() {
                     </NavLink>
                   </div>
                   <div className="button-keluar w-full mt-4">
-                    <button className="bg-orange-500 w-full hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1">
+                    <button onClick={logoutHandler} className="bg-orange-500 w-full hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1">
                       Keluar
                     </button>
                   </div>
@@ -134,7 +150,10 @@ function LayoutUser() {
                     </NavLink>
                   </div>
                   <div className="button-keluar w-full mt-4">
-                    <button className="bg-orange-500 w-full hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1">
+                    <button
+                      onClick={logoutHandler}
+                      className="bg-orange-500 w-full hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1"
+                    >
                       Keluar
                     </button>
                   </div>
@@ -148,8 +167,10 @@ function LayoutUser() {
         ) : (
           <Outlet />
         )}
-
-        <Footer />
+        {
+          pathname.includes('/peta') ? '':
+          <Footer />
+        }
       </main>
     </>
   );

@@ -8,3 +8,8 @@ export const loginAPI = (payload) => {
   return API.post("/user/login", payload);
 };
 
+export const logoutAPI = () => {
+  return API.post("/user/logout");
+};
+
+

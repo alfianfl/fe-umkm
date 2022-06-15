@@ -1,24 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage, FieldArray } from 'formik';
 import './style.scss';
 import plus from '../../../assets/img/plus.svg';
+import { getTokoByIdAPI, editPromoAPI } from '../../../models/TokoAPI';
+import { useParams } from 'react-router';
+import { loader } from '../../../helpers';
+import swal from 'sweetalert';
 
-const initialValues = {
-  friends: [
-    {
-      platform: '',
-      nama: '',
-      link: '',
-      date: ''
-    }
-  ]
-};
+
 
 const StepVoucher = (props) => {
-  const validate2 = (val) => {
-    props.nextStep();
-    console.log(val);
-  };
+  const [loading, setLoading] = useState(false);
+  const param = useParams();
+  const [initialValues, setInitialValues] = useState({
+    promos: [
+      {
+        platform: '',
+        nama_promo: '',
+        link: '',
+        masa_berlaku: ''
+      }
+    ]
+  })
+  useEffect(() => {
+    if (param.id) {
+      getTokoByIdAPI(param.id)
+        .then((res) => {
+     
+          setInitialValues({
+            ...initialValues,
+            promos: res.data.data.promos
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [param.id]);
+
+  const addPromo = (val) =>{
+    editPromoAPI(val, param.id).then((res) => {
+      if (res.data.status === 'error') {
+        swal('Server Error');
+      } else {
+        swal({
+          title: 'Berhasil mengubah data',
+          icon: 'success'
+        });
+      }
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.log(err);
+      setLoading(false);
+    });
+  }
+  
+
   return (
     // onSubmit={async (values) => {
     //   await new Promise((r) => setTimeout(r, 500));
@@ -28,10 +66,10 @@ const StepVoucher = (props) => {
       <div className="title">
         <h1>Voucher Toko</h1>
       </div>
-      <Formik initialValues={initialValues}>
+      <Formik  enableReinitialize={true} initialValues={initialValues}>
         {({ values }) => (
           <Form>
-            <FieldArray name="friends">
+            <FieldArray name="promos">
               {({ insert, remove, push }) => (
                 <div>
                   <div className="flex justify-end">
@@ -43,8 +81,8 @@ const StepVoucher = (props) => {
                       <img src={plus} className="mr-1" alt="" /> Tambah Voucher
                     </button>
                   </div>
-                  {values.friends.length > 0 &&
-                    values.friends.map((friend, index) => (
+                  {values.promos.length > 0 &&
+                    values.promos.map((friend, index) => (
                       <div className="thumb-media-sosial p-4 mt-4" key={index}>
                         <div className="flex justify-end">
                           <button
@@ -65,9 +103,10 @@ const StepVoucher = (props) => {
                                 className={`form-input pr-4 flex items-center bg-white rounded mb-4`}
                               >
                                 <Field
-                                  name={`friends.${index}.nama`}
+                                  name={`promos.${index}.nama_promo`}
                                   className="w-full h-12 focus:outline-none pl-2"
                                   placeholder="ex: Diskon 10% Semua Menu"
+                                  value={friend.nama_promo}
                                 />
                               </div>
                             </div>
@@ -80,14 +119,16 @@ const StepVoucher = (props) => {
                                   className="form-input h-12 focus:outline-none pl-2 mt-2 w-full"
                                   aria-label="Default select example"
                                   as="select"
-                                  name={`friends.${index}.platform`}
+                                  name={`promos.${index}.platform`}
+                                  value={friend.platform}
                                 >
-                                  <option selected>
+                                  <option value={''} selected>
                                     Open this select menu
                                   </option>
-                                  <option value={1}>One</option>
-                                  <option value={2}>Two</option>
-                                  <option value={3}>Three</option>
+                                  <option value={'Tokopedia'}>Tokopedia</option>
+                                  <option value={'Shopee'}>Shopee</option>
+                                  <option value={'Gojek'}>Gojek</option>
+                                  <option value={'Grab'}>Grab</option>
                                 </Field>
                               </div>
                             </div>
@@ -101,9 +142,10 @@ const StepVoucher = (props) => {
                                 className={`form-input pr-4 flex items-center bg-white rounded mb-4`}
                               >
                                 <Field
-                                  name={`friends.${index}.link`}
+                                  name={`promos.${index}.link`}
                                   className="w-full h-12 focus:outline-none pl-2"
                                   placeholder="Masukan Link Media Sosial"
+                                  value={friend.link}
                                 />
                               </div>
                             </div>
@@ -115,10 +157,11 @@ const StepVoucher = (props) => {
                                 className={`form-input pr-4 flex items-center bg-white rounded mb-4`}
                               >
                                 <Field
-                                  name={`friends.${index}.date`}
+                                  name={`promos.${index}.masa_berlaku`}
                                   className="w-full h-12 focus:outline-none pl-2"
                                   placeholder="Masukan Tanggal"
                                   type="date"
+                                  value={friend.masa_berlaku}
                                 />
                               </div>
                             </div>
@@ -130,9 +173,16 @@ const StepVoucher = (props) => {
               )}
             </FieldArray>
             <div className="w-full flex justify-end">
-              <button className="bg-orange-500 hover:bg-orange-600 text-sm text-white font-bold rounded shadow-md px-6 py-2 mt-4">
-                Simpan Perubahan
-              </button>
+              {
+                <button
+                  className="bg-orange-500 hover:bg-orange-600 text-sm mt-6 text-white font-bold rounded shadow-md px-6 py-2"
+                  onClick={() => addPromo(values)}
+                  style={{ opacity: loading ? 0.6 : 1, width: '100px' }}
+                  disabled={loading}
+                >
+                  {loading ? loader() : 'Simpan'}
+                </button>
+              }
             </div>
           </Form>
         )}

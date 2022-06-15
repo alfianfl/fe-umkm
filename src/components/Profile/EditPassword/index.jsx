@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import { editPasswordAPI } from '../../../models/UserAPI';
 import './style.scss';
+import swal from 'sweetalert';
+import Cookies from 'js-cookie';
+import { loaderOverlay } from '../../../helpers';
 
 function EditPassword() {
   const [showPass, setShowPass] = useState(false);
   const [showConfrimPass, setShowConfrimPass] = useState(false);
   const [isRequire, setIsRequire] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState({
     confirmPassword: '',
     password: ''
   });
+  const id = Cookies.get('userId');
 
   const showPassHandler = () => {
     setShowPass(!showPass);
@@ -24,11 +30,38 @@ function EditPassword() {
       [name]: value
     });
   };
+
+  const ubahPassword = () => {
+    setLoading(true)
+    editPasswordAPI(
+      {
+        password_baru: inputValue.password,
+        password: inputValue.confirmPassword
+      },
+      id
+    )
+      .then((res) => {
+        if (res.data.message === 'Password tidak sama') {
+          swal('Password yang dimasukan salah');
+        } else {
+          swal({
+            title: 'Berhasil mengubah data',
+            icon: 'success'
+          });
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
   return (
     <div className="site-edit-profile">
       <div className="card-title p-4">
         <h1>Ganti Password</h1>
       </div>
+      {loading && loaderOverlay()}
       <div className="p-4 form-content">
         <div className="flex flex-col form-body">
           <label className="text-left font-semibold mb-2" htmlFor="password">
@@ -88,7 +121,9 @@ function EditPassword() {
           </label>
           <div
             className={`${
-              isRequire && inputValue.confirmPassword === '' ? 'require' : 'valid'
+              isRequire && inputValue.confirmPassword === ''
+                ? 'require'
+                : 'valid'
             } form-input pr-4 flex items-center bg-white rounded mb-4`}
           >
             <span className="px-3">
@@ -134,7 +169,10 @@ function EditPassword() {
             </svg>
           </div>
         </div>
-        <div className="button-save w-full flex justify-end mt-4">
+        <div
+          onClick={ubahPassword}
+          className="button-save w-full flex justify-end mt-4"
+        >
           <button className="bg-orange-500 hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1">
             Simpan Perubahan
           </button>

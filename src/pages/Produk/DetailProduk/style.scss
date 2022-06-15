@@ -29,11 +29,14 @@
   }
   .thumb-img-detail {
     margin-bottom: 16px;
-    width: 348px;
-    height: 348px;
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
     img {
+      border-radius: 10px;
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: cover;
       object-position: center center;
 
@@ -45,11 +48,12 @@
   }
   .thumb-mini-img {
     display: flex;
-    justify-content: space-between;
 
     img {
-      width: 82px;
-      height: 82px;
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
       cursor: pointer;
 
       &:hover {

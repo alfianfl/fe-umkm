@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CardPelatihan from '../../components/Commons/Card/CardPelatihan';
 import dummy1 from '../../assets/img/Mask group.png';
 import dummy2 from '../../assets/img/Mask group1.png';
 import dummy3 from '../../assets/img/Mask group2.png';
 import dummy4 from '../../assets/img/Mask group3.png';
 import './style.scss';
+import { getPelatihanAPI } from '../../models/PelatihanAPI';
 
 const listPelatihan = [
   { img: dummy1 },
@@ -17,6 +18,17 @@ const listPelatihan = [
   { img: dummy1 }
 ];
 function Pelatihan() {
+  const [pelatihan, setPelatihan] = useState([]);
+
+  useEffect(() => {
+    getPelatihanAPI()
+      .then((res) => {
+        setPelatihan(res.data.response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },[]);
   return (
     <div className="site-pelatihan container mx-auto mt-40">
       <section className="title">
@@ -30,8 +42,8 @@ function Pelatihan() {
       </section>
       <section className="list-pelatihan">
         <div className="grid grid-cols-4 gap-4">
-          {listPelatihan.map((toko, index) => (
-            <CardPelatihan key={index} img={toko.img} />
+          {pelatihan.map((item, index) => (
+            <CardPelatihan key={index} item={item} />
           ))}
         </div>
       </section>

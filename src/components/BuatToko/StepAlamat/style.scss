@@ -5,7 +5,7 @@
   }
   .mapbox-directions-destination,
   .mapbox-directions-profile,
- .directions-icon-reverse {
+ .directions-icon-reverse,.mapboxgl-ctrl-geocoder:nth-child(1) {
     display: none;
   }
   .mapboxgl-control-container {

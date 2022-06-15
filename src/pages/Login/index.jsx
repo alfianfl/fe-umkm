@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { loginAPI } from '../../models/AuthAPI';
+import swal from 'sweetalert';
 import './style.scss';
+import { useAuth } from '../../context/authContext';
+
 
 function Login() {
   const [showPass, setShowPass] = useState(false);
@@ -10,21 +13,38 @@ function Login() {
     email: '',
     password: ''
   });
-
+  let navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = location.state?.path || '/';
+  const auth = useAuth();
   const showPassHandler = () => {
     setShowPass(!showPass);
   };
+
+  // console.log('token', auth.token)
 
   const buttonLoginHandler = () => {
     if (inputValue.email === '' || inputValue.password === '') {
       setIsRequire(true);
     } else {
       const payload = {
-        username: inputValue.email,
+        email: inputValue.email,
         password: inputValue.password
       };
       loginAPI(payload)
-        .then((res) => {console.log(res)})
+        .then((res) => {
+          if (res.data.status === 'error') {
+            swal({
+              title: res.data.message,
+              text: 'Harap masukan kembali akun anda',
+              icon: 'warning'
+            });
+          } else {
+            auth.login(res.data.accessToken)
+            auth.userId(res.data.id)
+            navigate(redirectPath);
+          }
+        })
         .catch((err) => {
           console.log(err);
         });

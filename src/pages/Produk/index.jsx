@@ -1,46 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import locationIcon from '../../assets/img/Iconly.svg';
 import kategoriIcon from '../../assets/img/kategori.svg';
 import CardProduct from '../../components/Commons/Card/CardProduct';
+import { useDispatch, useSelector } from 'react-redux';
+import { loaderCard } from '../../helpers';
+import { fetchProduct } from '../../redux/actions/productAction';
 import './style.scss';
 
-const produkData = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
 const kategoriData = [
   {
-    nama: 'Semua Porduk'
+    nama: 'Budaya'
   },
   {
-    nama: 'Aksesoris'
+    nama: 'Fashion'
   },
   {
-    nama: 'Kerajinan'
+    nama: 'Kuliner'
   },
   {
-    nama: 'Pakaian'
+    nama: 'Jasa'
   },
   {
-    nama: 'Kecantikan'
+    nama: 'Konveksi'
   },
   {
-    nama: 'Kue'
+    nama: 'Agribisnis'
   },
-  {
-    nama: 'Makanan'
-  },
-  {
-    nama: 'Minuman'
-  },
-  {
-    nama: 'Elektronik'
-  },
-  {
-    nama: 'Mainan dan Hobi'
-  },
-]
+];
 
 function Produk() {
-  const [listProduk, setListProduk] = useState(produkData);
   const [listKategori, setListKategori] = useState(kategoriData);
+  const [inputValue, setInputValue] = useState('');
+  const listProduk = useSelector((state) => state.listProduk.product);
+  const isLoading = useSelector((state) => state.listProduk.loading);
+  const dispatch = useDispatch();
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      dispatch(fetchProduct(`/search?q=${inputValue}`));
+    }
+  };
+
+  const searchHandler = (e) => {
+    dispatch(fetchProduct(`/search?q=${inputValue}`));
+  };
+
+  const categoryHandler = (name) => {
+    dispatch(fetchProduct(`/category?ctg=${name}`));
+  };
+
+  useEffect(() => {
+    dispatch(fetchProduct());
+  }, [dispatch]);
   return (
     <div className="container site-main-produk mx-auto mt-40">
       <div className="grid gap-8 grid-cols-4">
@@ -54,13 +65,14 @@ function Produk() {
             </span>
 
             <div className="flex flex-col">
-              {
-                listKategori.map((kategori,index)=>(
-                  <div className='thumb-kategori'> 
-                    <span>{kategori.nama}</span>
-                  </div>
-                ))
-              }
+              {listKategori.map((kategori, index) => (
+                <div
+                  onClick={() => categoryHandler(kategori.nama)}
+                  className="thumb-kategori"
+                >
+                  <span>{kategori.nama}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -110,11 +122,14 @@ function Produk() {
                   placeholder="Pencarian Produk UMKM"
                   aria-label="Search"
                   aria-describedby="button-addon2"
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
                 />
                 <button
                   className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center"
                   type="button"
                   id="button-addon2"
+                  onClick={searchHandler}
                 >
                   <svg
                     aria-hidden="true"
@@ -135,11 +150,25 @@ function Produk() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
-            {listProduk.map((produk, index) => (
-              <CardProduct key={index} />
-            ))}
-          </div>
+
+          {isLoading ? (
+            <div className="flex justify-center">{loaderCard()}</div>
+          ) : listProduk.length === 0 ? (
+            <div className="flex justify-center ">
+              <div className="w-1/2">
+                <div>
+                  <img src="https://img.freepik.com/free-vector/no-data-concept-illustration_203587-28.jpg?w=2000" />
+                  <h1 className="text-center">Oppss...Data tidak ditemukan</h1>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-4">
+              {listProduk.map((item, index) => (
+                <CardProduct item={item} key={index} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

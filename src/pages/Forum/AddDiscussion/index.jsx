@@ -1,13 +1,38 @@
 import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import './style.scss';
+import { useNavigate } from 'react-router-dom';
+import { addForumAPI } from '../../../models/ForumAPI';
+import swal from 'sweetalert';
+import { loader } from '../../../helpers';
 
 function AddDiscussion() {
+  let history = useNavigate();
   const editorRef = useRef();
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState({
     judul: '',
     isi: ''
   });
+
+  const addForumHandler = () => {
+    const payload = {
+      isi_forum: inputValue.isi,
+      judul_forum: inputValue.judul
+    };
+    setLoading(true);
+    addForumAPI(payload)
+      .then((res) => {
+        console.log(res);
+        history("/diskusi");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        swal('Server Error');
+        setLoading(false);
+      });
+  };
 
   return (
     <div className="site-add-forum container mx-auto mt-40">
@@ -49,8 +74,13 @@ function AddDiscussion() {
           />
         </div>
         <div className="button-posting w-full flex justify-end my-4">
-          <button className="bg-orange-500 hover:bg-orange-600 font-bold text-white rounded shadow-md px-6 py-1">
-            Posting
+          <button
+            className="bg-orange-500 hover:bg-orange-600 text-sm text-white font-bold rounded shadow-md px-6 py-2"
+            onClick={addForumHandler}
+            style={{ opacity: loading ? 0.6 : 1, width: '100px' }}
+            disabled={loading}
+          >
+            {loading ? loader() : 'Tambah Forum'}
           </button>
         </div>
       </section>

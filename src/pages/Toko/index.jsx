@@ -1,12 +1,95 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardToko from '../../components/Commons/Card/CardToko';
 import locationIcon from '../../assets/img/Iconly.svg';
 import './style.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchToko } from '../../redux/actions/tokoAction';
+import { loaderCard } from '../../helpers';
+import kategoriIcon from '../../assets/img/kategori.svg';
 
-const tokoData = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+const listKecamatan = [
+  {
+    nama: 'Cimahi Utara',
+    value: 'Cimahi Utara'
+  },
+  {
+    nama: 'Cimahi Tengah',
+    value: 'Cimahi Tengah'
+  },
+  {
+    nama: 'Cimahi Selatan',
+    value: 'Cimahi Selatan'
+  }
+];
 
+const listKategori = [
+  {
+    nama: 'Budaya'
+  },
+  {
+    nama: 'Fashion'
+  },
+  {
+    nama: 'Kuliner'
+  },
+  {
+    nama: 'Jasa'
+  },
+  {
+    nama: 'Konveksi'
+  },
+  {
+    nama: 'Agribisnis'
+  },
+];
 function Toko() {
-  const [listToko, setListToko] = useState(tokoData);
+  const [inputValue, setInputValue] = useState('');
+  const [inputLokasi, setInputLokasi] = useState([]);
+  const listToko = useSelector((state) => state.listToko.toko);
+  const isLoading = useSelector((state) => state.listToko.loading);
+  const dispatch = useDispatch();
+
+  const searchHandler = (e) => {
+    dispatch(fetchToko(`/search?q=${inputValue}`));
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      dispatch(fetchToko(`/search?q=${inputValue}`));
+    }
+  };
+
+  const lokasiHandlerChange = (e) => {
+    // Destructuring
+    const { value, checked } = e.target;
+
+    // Case 1 : The user checks the box
+    if (checked) {
+      setInputLokasi([...inputLokasi, value]);
+    }
+
+    // Case 2  : The user unchecks the box
+    else {
+      setInputLokasi(inputLokasi.filter((e) => e !== value));
+    }
+  };
+  const lokasiHandler = (e) => {
+    dispatch(
+      fetchToko(
+        `/lokasi?lks=${inputLokasi[0]}&lks=${inputLokasi[1] || ''}&lks=${
+          inputLokasi[2] || ''
+        }`
+      )
+    );
+  };
+
+  const categoryHandler = (name) => {
+    dispatch(fetchToko(`/kategori?ctg=${name}`));
+  };
+
+  useEffect(() => {
+    dispatch(fetchToko());
+  }, [dispatch]);
   return (
     <div className="container site-main-toko mx-auto mt-40">
       <div className="grid gap-8 grid-cols-4">
@@ -21,56 +104,54 @@ function Toko() {
 
             <div className="flex ">
               <div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    defaultValue
-                    id="flexCheckDefault"
-                  />
-                  <label
-                    className="form-check-label inline-block text-gray-800"
-                    htmlFor="flexCheckDefault"
-                  >
-                    Cimahi Utara
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    defaultValue
-                    id="flexCheckChecked"
-                    defaultChecked
-                  />
-                  <label
-                    className="form-check-label inline-block text-gray-800"
-                    htmlFor="flexCheckChecked"
-                  >
-                    Cimahi Tengah
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    defaultValue
-                    id="flexCheckChecked"
-                    defaultChecked
-                  />
-                  <label
-                    className="form-check-label inline-block text-gray-800"
-                    htmlFor="flexCheckChecked"
-                  >
-                    Cimahi Selatan
-                  </label>
-                </div>
+                {listKecamatan.map((item, i) => (
+                  <div key={i} className="form-check">
+                    <input
+                      className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                      type="checkbox"
+                      defaultValue
+                      value={item.value}
+                      id="flexCheckDefault"
+                      onChange={lokasiHandlerChange}
+                    />
+                    <label
+                      className="form-check-label inline-block text-gray-800"
+                      htmlFor="flexCheckDefault"
+                    >
+                      {item.nama}
+                    </label>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <button className="bg-orange-500 button-filter w-full hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1">
+            <button
+              onClick={lokasiHandler}
+              disabled={inputLokasi.length === 0}
+              style={{ opacity: inputLokasi.length === 0 ? 0.6 : 1 }}
+              className="bg-orange-500 button-filter w-full hover:bg-orange-600 text-lg text-white font-bold rounded shadow-md px-6 py-1"
+            >
               Terapkan
             </button>
+          </div>
+          <div className="filter-thumb  p-6 mt-8">
+            <span className="lokasi flex">
+              {' '}
+              <img src={kategoriIcon} alt="" />{' '}
+              <span className="ml-2 font-semibold">Sektor Usaha</span>{' '}
+            </span>
+
+            <div className="flex flex-col">
+              {listKategori.map((kategori, index) => (
+                <div
+                  key={index}
+                  onClick={() => categoryHandler(kategori.nama)}
+                  className="thumb-kategori"
+                >
+                  <span>{kategori.nama}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="col-span-3">
@@ -109,7 +190,7 @@ function Toko() {
                 />
               </svg>
 
-              <h1 className="ml-4 font-bold">Toko UMKM</h1>
+              <h1 className="ml-4 font-bold">Toko UMKM </h1>
             </div>
             <div className="mb-3 col-span-2">
               <div className="input-group relative flex items-stretch w-full mb-4">
@@ -119,11 +200,14 @@ function Toko() {
                   placeholder="Pencarian Toko UMKM"
                   aria-label="Search"
                   aria-describedby="button-addon2"
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
                 />
                 <button
                   className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center"
                   type="button"
                   id="button-addon2"
+                  onClick={searchHandler}
                 >
                   <svg
                     aria-hidden="true"
@@ -144,11 +228,24 @@ function Toko() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
-            {listToko.map((toko, index) => (
-              <CardToko key={index} />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="flex justify-center">{loaderCard()}</div>
+          ) : listToko.length === 0 ? (
+            <div className="flex justify-center">
+              <div className="w-1/2">
+                <div>
+                  <img src="https://img.freepik.com/free-vector/no-data-concept-illustration_203587-28.jpg?w=2000" />
+                  <h1 className="text-center">Oppss...Data tidak ditemukan</h1>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-4">
+              {listToko.map((item, index) => (
+                <CardToko item={item} key={index} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

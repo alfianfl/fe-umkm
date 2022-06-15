@@ -6,6 +6,41 @@
   right: 0;
 }
 
+.card-legenda-1{
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  right: 2%;
+  width: 400px;
+  height: 470px;
+  background-color: transparent;
+  border-radius: 10px;
+  z-index: 1 !important;
+  font-weight: bold;
+  overflow-y: auto;
+}
+.div-1, .div-2{
+  background-color:white;
+  padding: 15px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+.div-2{
+  position: relative;
+}
+
+.div-2{
+  margin-top: 10px;
+}
+.card-legenda-1 .lokasi {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  line-height: 25px;
+  text-align: justify;
+  color: #898989;
+}
+
 .sidebarStyle {
   display: inline-block;
   position: absolute;
@@ -147,10 +182,45 @@ a.mapboxgl-ctrl-logo {
   top: 150px;
 }
 
+
+.mapbox-directions-component-keyline{
+  box-shadow: 0 0 0 2px transparent;
+
+}
+
 .card-toko-point {
   background-color: white;
   width: 240px;
   position: relative;
   bottom: 150px;
   left: 10px;
+}
+
+.card-toko-point .thumb-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-toko-point .thumb-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.desc{
+  word-wrap: break-word;
+}
+
+.thumb-img7 img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.thumb-img7 {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }

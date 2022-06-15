@@ -1,8 +1,9 @@
 import React from 'react';
+import './style.scss';
 
 function Footer() {
   return (
-    <footer className="text-center lg:text-left bg-orange-500 text-white mt-40">
+    <footer className="text-center lg:text-left text-white ">
       <div className="flex justify-center items-center lg:justify-between p-6 border-b border-gray-300">
         <div className="mr-12 hidden lg:block">
           <span>Get connected with us on social networks:</span>
@@ -149,7 +150,7 @@ function Footer() {
             </p>
           </div>
           <div>
-            <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+            <h6 className="uppercase mb-4 flex justify-center md:justify-start">
               Products
             </h6>
             <p className="mb-4">
@@ -174,33 +175,8 @@ function Footer() {
             </p>
           </div>
           
-          <div>
-            <h6 className="uppercase font-bold mb-4 flex justify-center md:justify-start">
-              Useful links
-            </h6>
-            <p className="mb-4">
-              <a href="#!" className="text-white">
-                Pricing
-              </a>
-            </p>
-            <p className="mb-4">
-              <a href="#!" className="text-white">
-                Settings
-              </a>
-            </p>
-            <p className="mb-4">
-              <a href="#!" className="text-white">
-                Orders
-              </a>
-            </p>
-            <p>
-              <a href="#!" className="text-white">
-                Help
-              </a>
-            </p>
-          </div>
           <div >
-            <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+            <h6 className="uppercase  mb-4 flex justify-center md:justify-start">
               Contact
             </h6>
             <p className="flex items-center justify-center md:justify-start mb-4">
@@ -278,7 +254,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="text-center p-6 bg-orange-400">
+      <div className="text-center p-6 owner">
         <span>© 2022 Copyright : </span>
         <a
           className="text-white"

@@ -7,5 +7,5 @@ export const API = axios.create({
     headers:{
         'Content-Type': 'application/json'
       },
-      credentials: "same-origin",
+    withCredentials:true
 });

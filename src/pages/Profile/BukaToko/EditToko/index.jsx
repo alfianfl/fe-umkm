@@ -9,6 +9,7 @@ import StepLegalitas from '../../../../components/BuatToko/StepLegalitas';
 import './style.scss';
 import back from '../../../../assets/img/back.png';
 import { NavLink } from 'react-router-dom';
+
 const EditToko = () => {
   return (
     <Tabs>

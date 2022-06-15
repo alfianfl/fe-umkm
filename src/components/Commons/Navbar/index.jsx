@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import user from '../../../assets/img/user.svg';
 import './style.scss';
+import Cookies from 'js-cookie';
 
 const navList = [
   {
@@ -33,6 +34,7 @@ const navList = [
 function Navbar() {
   const { pathname } = useLocation();
   const [path, setPath] = useState('');
+  const token = Cookies.get('accessToken');
 
   useEffect(() => {
     setPath(pathname);
@@ -45,7 +47,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar-main bg-white border-gray-200 px-2 sm:px-4 py-6 rounded dark:bg-gray-800">
+    <nav className="navbar-main bg-white border-gray-200 px-2 sm:px-4 py-4 rounded dark:bg-gray-800">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <div className="thumb-image">
           <img
@@ -102,27 +104,30 @@ function Navbar() {
                 </NavLink>
               </li>
             ))}
-            {/* <li>
-              <NavLink to={'/login'}>
-                <button
-                  type="button"
-                  className="button-auth rounded-lg text-sm px-5 py-2.5 mr-2  "
-                >
-                  Masuk / Daftar
-                </button>
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink to={'/profile/edit-profile'}>
-                <button
-                  type="button"
-                  className="button-profile rounded-lg text-sm px-5 py-2.5 mr-2  "
-                >
-                  <img src={user} className="mr-2" alt="" />
-                  profile
-                </button>
-              </NavLink>
-            </li>
+            {token ? (
+              <li>
+                <NavLink to={'/profile/edit-profile'}>
+                  <button
+                    type="button"
+                    className="button-profile rounded-lg text-sm px-5 py-2.5 mr-2  "
+                  >
+                    <img src={user} className="mr-2" alt="" />
+                    profile
+                  </button>
+                </NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink to={'/login'}>
+                  <button
+                    type="button"
+                    className="button-auth rounded-lg text-sm px-5 py-2.5 mr-2  "
+                  >
+                    Masuk / Daftar
+                  </button>
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>

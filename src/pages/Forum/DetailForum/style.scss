@@ -1,8 +1,8 @@
 .site-detail-forum {
   padding: 0 40px;
 
-  @media (min-width:1024px) {
-    &{
+  @media (min-width: 1024px) {
+    & {
       padding: 0 200px;
     }
   }
@@ -12,7 +12,12 @@
       height: 40px;
     }
   }
-
+  .article-main {
+    background-color: #e6edf7;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
   h1.title {
     font-weight: 600;
     font-size: 38px;
@@ -21,16 +26,21 @@
   }
 
   .article-comment {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #e6edf7;
+    border-radius: 10px;
+    padding: 25px;
     span {
       font-size: 14px;
       margin-top: 2px;
+
       color: #323232;
       font-weight: 600;
     }
-    .thumb-img-comment{
+    .thumb-img-comment {
       width: 6%;
     }
-    .comment{
+    .comment {
       width: 94%;
     }
     .akun {
@@ -65,7 +75,7 @@
     font-size: 12px;
     font-weight: 600;
   }
-  .button-enter{
+  .button-enter {
     position: absolute;
     left: 94%;
   }
