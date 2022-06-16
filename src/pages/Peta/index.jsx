@@ -128,7 +128,6 @@ const Peta = () => {
       // Render a Marker Component on our new DOM node
       ReactDOM.render(<Marker feature={feature} data={feature} />, ref.current);
 
-      console.log(feature.lokasi.coordinates);
 
       // Create a Mapbox Marker at our new DOM node
       new mapboxgl.Marker(ref.current)

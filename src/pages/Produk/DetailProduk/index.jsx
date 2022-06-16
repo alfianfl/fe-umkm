@@ -85,20 +85,14 @@ function DetailProduk() {
               </p>
             </div>
             <div className="description">
+            <h2 className="font-bold">Deskripsi Produk</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor
-                velit vulputate vitae, magnis eu tincidunt volutpat cursus
-                magna. Leo ultricies sit nunc facilisi leo id nulla leo. Risus
-                pharetra in at orci nisi eget. Nibh blandit.Risus pharetra in at
-                orci nisi eget. Nibh blandit. lolaist Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. Tortor velit vulputate vitae,
-                magnis eu tincidunt volutpat cursus magna. Leo ultricies sit
-                nunc facilisi leo id nulla leo. Risus pharetra in at orci nisi
-                eget. Nibh blandit.Risus pharetra in.
+                {produk.deskripsi}
               </p>
             </div>
           </div>
-
+            {
+              toko === null ? '' :
           <div className="toko">
             <div className="card-title text-left flex items-center">
               <div className="flex items-center">
@@ -124,6 +118,7 @@ function DetailProduk() {
               </div>
             </div>
           </div>
+            }
         </section>
       </div>
     </div>

@@ -19,13 +19,13 @@ function LayoutUser() {
 
   const logoutHandler = () => {
     logoutAPI()
-      .then((res) => {
-        auth.logout();
-        navigate('/login')
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res) => {
+      auth.logout();
+      navigate('/login')
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
   return (
     <>
@@ -35,7 +35,7 @@ function LayoutUser() {
           <div className="container  mx-auto mt-40">
             <div className="grid gap-8 grid-cols-4">
               <div className="text-left sidebar-profile ">
-                <div className="side-profile-thumb p-4">
+                {/* <div className="side-profile-thumb p-4">
                   <div className="flex ">
                     <div className="card-title text-left flex ">
                       <div className="thumb-img mr-4">
@@ -49,7 +49,7 @@ function LayoutUser() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="side-profile-thumb mt-4 p-4">
                   <div className="profile-section">
                     <h1 className="section-title">Profile</h1>

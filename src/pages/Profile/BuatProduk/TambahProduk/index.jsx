@@ -23,7 +23,7 @@ const TambahProduk = (props) => {
     kategori_produk: '',
     harga_produk: '',
     id_toko: '',
-    deskripsi_produk: '',
+    deskripsi: '',
     foto_produk: []
   });
   const listKategori = [
@@ -51,7 +51,7 @@ const TambahProduk = (props) => {
           kategori_produk: res.data.data.kategori_produk,
           harga_produk: res.data.data.harga_produk,
           id_toko: res.data.data.id_toko,
-          deskripsi_produk: res.data.data.deskripsi,
+          deskripsi: res.data.data.deskripsi,
           foto_produk:[]
         });
       })
@@ -96,7 +96,7 @@ const TambahProduk = (props) => {
       const newData = new FormData();
       newData.append('nama_produk', inputValue.nama_produk);
       newData.append('id_toko', inputValue.id_toko);
-      newData.append('deskripsi_produk', inputValue.deskripsi_produk);
+      newData.append('deskripsi', inputValue.deskripsi);
       newData.append('kategori_produk', inputValue.kategori_produk);
       newData.append('harga_produk', inputValue.harga_produk);
       for (const key of Object.keys(inputValue.foto_produk)) {
@@ -270,9 +270,9 @@ const TambahProduk = (props) => {
               <textarea
                 className="  w-full h-12 focus:outline-none p-2"
                 placeholder="Masukan Deskripsi Toko Anda"
-                name="deskripsi_produk"
+                name="deskripsi"
                 onChange={inputChangeHandler}
-                value={inputValue.deskripsi_produk}
+                value={inputValue.deskripsi}
               />
             </div>
           </div>
